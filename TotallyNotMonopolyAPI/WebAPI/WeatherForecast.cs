@@ -1,6 +1,6 @@
 using System;
 
-namespace TotallyNotMonopolyAPI
+namespace WebAPI
 {
     public class WeatherForecast
     {
