@@ -7,13 +7,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GameTableComponent } from './game-table/game-table.component';
 
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatCardModule } from '@angular/material/card'; 
-import { MatDividerModule } from '@angular/material/divider'; 
-import { MatButtonModule } from '@angular/material/button'; 
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
 
 
 const MaterialComponents = [
-  MatGridListModule
   MatGridListModule,
   MatCardModule,
   MatDividerModule,
