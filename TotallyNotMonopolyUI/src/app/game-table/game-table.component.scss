@@ -1,8 +1,16 @@
 .table-wrapper {
+  display:flex;
   margin: auto;
-  height: 80vh;
-  width: 80%;
-  mat-grid-tile {
-    background-color: gray;
+  padding: 1%;
+  background-color: aquamarine;
+  width: 50%;
+  height: auto;
+  mat-grid-list {
+    margin: auto;
+    height:96vh;
+    width: 100vh;
+    background-color: black;
+  }
+}
   }
 }
