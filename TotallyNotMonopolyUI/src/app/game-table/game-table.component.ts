@@ -1,5 +1,5 @@
 import { ArrayType } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface Tile {
@@ -44,4 +44,29 @@ export class GameTableComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  openUpgradesMenu(number: number) {
+    console.log("Player "+number+"'s upgrade menu");
+    let player: Player = this.players[number-1];
+    console.log(player)
+    const dialogRef = this.dialog.open(UpgradeMenuDialog, {
+      width: '40%',
+      data: player
+    });
+    // this.dialog.open(UpgradeMenuDialog, player);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("The dialog was closed.");
+      console.log(result);
+    });
+  }
+}
+
+@Component({
+  selector: 'upgrade-menu-dialog',
+  templateUrl: 'upgrade-menu.html'
+})
+export class UpgradeMenuDialog {
+  constructor(
+    public dialogRef: MatDialogRef<UpgradeMenuDialog>,
+    @Inject(MAT_DIALOG_DATA) public player: Player) {}
 }
