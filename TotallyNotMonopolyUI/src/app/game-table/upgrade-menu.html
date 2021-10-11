@@ -1,0 +1,6 @@
+<h1 mat-dialog-title>Player {{player.number}}'s upgrade menu:</h1>
+<div mat-dialog-content>
+    Money left: ${{player.money}}<br>
+    {{player.properties}}
+    <div *ngFor="let property of player.properties">{{property}}</div>
+</div>
