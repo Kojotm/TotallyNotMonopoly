@@ -1,0 +1,18 @@
+﻿[
+  {
+    "name": "Reading Railroad",
+    "cost": 200
+  },
+  {
+    "name": "Pennsylvania Railroad",
+    "cost": 200
+  },
+  {
+    "name": "B. & O. Railroad",
+    "cost": 200
+  },
+  {
+    "name": "Shortline",
+    "cost": 200
+  }
+]
