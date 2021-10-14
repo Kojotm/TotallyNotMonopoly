@@ -18,7 +18,7 @@ For TotallyNotMonopoly we have made a division in frontend and backend, where th
 ### Luncher
 
 ## The development team 👥
-* Robert Csékei
-* Dániel Havesdi
+* Róbert Csékei
+* Dániel Havasdi
 * Marcell Kajati
 * Martín Yerle
