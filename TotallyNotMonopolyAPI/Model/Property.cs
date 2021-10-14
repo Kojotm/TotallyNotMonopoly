@@ -11,8 +11,8 @@ namespace Model
         public string Name { get; set; }
         public string Color { get; set; }
         public Player Owner { get; set; }
-        public int house { get; set; }
-        public int cost { get; set; }
-        public int[] rent { get; set; }
+        public int House { get; set; }
+        public int Cost { get; set; }
+        public int[] Rent { get; set; }
     }
 }
