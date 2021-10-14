@@ -43,9 +43,9 @@ namespace Services
 
         public Player BuyProperty(Player player, Property property)
         {
-            if (player.Money >= property.cost)
+            if (player.Money >= property.Cost)
             {
-                player.properties.Add(property);
+                player.Properties.Add(property);
             }
             else
             {
@@ -58,8 +58,8 @@ namespace Services
         public Player SellProperty(Player player, Property property)
         {
             property.Owner = null;
-            player.properties.Remove(property);
-            player.Money += property.cost;
+            player.Properties.Remove(property);
+            player.Money += property.Cost;
 
             return player;
         }
