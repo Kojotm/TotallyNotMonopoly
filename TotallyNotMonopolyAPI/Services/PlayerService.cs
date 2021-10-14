@@ -6,7 +6,7 @@ namespace Services
     public class PlayerService
     {
 
-        public Player[] CreateRamdonPlayers()
+        public Player[] CreateRandomPlayers()
         {
             Player[] players = new Player[4];
             
