@@ -3,15 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{A6CD5CAC-0DCD-4219-A51F-1D83C0B214A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{A6CD5CAC-0DCD-4219-A51F-1D83C0B214A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{3AB6D710-5EA4-4D65-B1A7-DD98753FA1AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{3AB6D710-5EA4-4D65-B1A7-DD98753FA1AB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EC9CB518-14CF-4FDB-A785-88DDDDE27522} = {EC9CB518-14CF-4FDB-A785-88DDDDE27522}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Test", "Services.Test\Services.Test.csproj", "{69B52D4F-DE97-4234-93AA-0D22F9DD796C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Test", "Services.Test\Services.Test.csproj", "{69B52D4F-DE97-4234-93AA-0D22F9DD796C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{EC9CB518-14CF-4FDB-A785-88DDDDE27522}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{EC9CB518-14CF-4FDB-A785-88DDDDE27522}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{C31A9AEA-974E-4842-B8FE-C9C8F7AC0879}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\Persistence.csproj", "{C31A9AEA-974E-4842-B8FE-C9C8F7AC0879}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EC9CB518-14CF-4FDB-A785-88DDDDE27522} = {EC9CB518-14CF-4FDB-A785-88DDDDE27522}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
