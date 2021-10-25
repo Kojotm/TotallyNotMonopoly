@@ -66,7 +66,6 @@ export class GameTableComponent implements OnInit {
   openUpgradesMenu(number: number) {
     console.log('Player ' + number + "'s upgrade menu");
     let player: Player = this.players[number - 1];
-    console.log(player);
     const dialogRef = this.dialog.open(UpgradeMenuDialog, {
       width: '40%',
       data: player,
@@ -118,12 +117,6 @@ export class GameTableComponent implements OnInit {
         text: 'This is a bottom-row tile.',
       });
     }
-    console.log(
-      this.leftcolTiles.length,
-      this.topRowTiles.length,
-      this.rightColTiles.length,
-      this.bottomRowTiles.length
-    );
   }
   fillTableWithTiles() {
     this.tiles.push({
