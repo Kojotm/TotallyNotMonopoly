@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 export interface Tile {
   name: string;
   color: string;
+  img: string
   cols: number;
   rows: number;
   text: string;
@@ -14,6 +15,11 @@ export interface Player {
   money: number;
   properties: string[];
 }
+export interface Property {
+  name: string;
+  price: number[];
+  level: number;
+}
 
 @Component({
   selector: 'app-game-table',
@@ -22,21 +28,29 @@ export interface Player {
 })
 export class GameTableComponent implements OnInit {
   tiles: Tile[] = [
-    { name:"top-left", color:"rgb(82, 80, 80)", cols:2, rows:2, text:"top left corner tile"},
-    { name:"top-row", color:"grey", cols:9, rows:2, text:"top row tiles" },
-    { name:"top-right", color:"rgb(82, 80, 80)", cols:2, rows:2, text:"top right corner tile"},
-    { name:"left-col", color:"grey", cols:2, rows:9, text:"left col tiles"},
-    { name:"filler", color:"white", cols:9, rows:9, text:"Totally not monopoly board"},
-    { name:"right-col", color:"grey", cols:2, rows:9, text:"right col tiles"},
-    { name:"bottom-left", color:"rgb(82, 80, 80)", cols:2, rows:2, text:"bottom left corner tile"},
-    { name:"bottom-row", color:"grey", cols:9, rows:2,text:"bottom row tiles"},
-    { name:"bottom-right", color:"rgb(82, 80, 80)", cols:2, rows:2, text:"bottom right corner tile"},
+    { name:"top-left", color:"rgb(82, 80, 80)", img:"url('../../assets/jail-tile.png')", cols:2, rows:2, text:""},
+    { name:"top-row", color:"grey", img:"", cols:9, rows:2, text:"top row tiles" },
+    { name:"top-right", color:"rgb(82, 80, 80)", img:"url('../../assets/parking-tile.png')", cols:2, rows:2, text:""},
+    { name:"left-col", color:"grey", img:"", cols:2, rows:9, text:"left col tiles"},
+    { name:"filler", color:"white", img:"", cols:9, rows:9, text:"Totally not monopoly board"},
+    { name:"right-col", color:"grey", img:"", cols:2, rows:9, text:"right col tiles"},
+    
+    { name:"bottom-left", color:"rgb(82, 80, 80)", img:"url('../../assets/start-tile.png')", cols:2, rows:2, text:""}, //Start tile
+    
+    
+    { name:"bottom-row", color:"grey", img:"", cols:9, rows:2, text:"bottom row tiles"},
+    { name:"bottom-right", color:"rgb(82, 80, 80)", img:"url('../../assets/go-to-jail-tile.png')", cols:2, rows:2, text:""},
   ];
+  
+  topRowProperties: Property[] = [
+    {name:"testProperty",price:[100,200,300,400,500],level:1},
+  ];
+
   players: Player[] = [
     {number:1, money:505000,properties:["Property 1","Property 2", "Property 3"]},
-    {number:2, money:5000,properties:["Property 1","Property 2", "Property 3"]},
-    {number:3, money:5000,properties:["Property 1","Property 2", "Property 3"]},
-    {number:4, money:5000,properties:["Property 1","Property 2", "Property 3"]},
+    {number:2, money:5000000,properties:["Property 1","Property 2", "Property 3"]},
+    {number:3, money:500000,properties:["Property 2", "Property 3"]},
+    {number:4, money:5000000,properties:["Property 1","Property 2", "Property 3"]},
   ];
   
   constructor(public dialog: MatDialog) { }
