@@ -26,7 +26,7 @@ namespace Model.Cards
         Utility
     }
 
-    public class Card
+    public class Field
     {
         public int Id { get; set; }
         public string Name { get; set; }
