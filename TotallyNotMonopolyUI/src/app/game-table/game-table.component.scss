@@ -1,15 +1,14 @@
 // rgb(233,230,219) - background of tiles
 
 .table-wrapper {
-  /* Position to center */
   position: absolute;
   left: 50%;
   margin: 2% 0%;
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
-  
+
   mat-grid-list {
-    height:96vh;
+    height: 96vh;
     width: 100vh;
     background-color: black;
     mat-grid-tile {
@@ -19,13 +18,17 @@
   }
 }
 .info-card {
-  background-color: rgb(235,235,235);
+  background-color: rgb(235, 235, 235);
   width: 15%;
   height: auto;
   position: absolute;
   mat-card-header {
     padding-top: 4%;
     border-radius: 1em;
+  }
+  .active-player-btn {
+    height: 100%;
+    margin: 1% 5% 0 auto;
   }
   mat-card-content {
     width: 90%;
@@ -34,37 +37,117 @@
   .upgrades-btn {
     margin: 0 10% 0 10%;
     width: 80%;
-    background-color: rgb(210,210,210);
+    background-color: rgb(210, 210, 210);
     &:hover {
-      background-color: rgb(180,180,180);
+      background-color: rgb(180, 180, 180);
     }
   }
   &.player-1-info-card {
     top: 5%;
     left: 5%;
     mat-card-header {
-      background-color: rgb(255,153,153);
+      background-color: rgb(255, 153, 153);
     }
   }
   &.player-2-info-card {
     top: 5%;
     right: 5%;
     mat-card-header {
-      background-color: rgb(204,255,204);
+      background-color: rgb(204, 255, 204);
     }
   }
   &.player-3-info-card {
     bottom: 5%;
-    left: 5%;
+    right: 5%;
+
     mat-card-header {
-      background-color: rgb(153,204,255);
+      background-color: rgb(153, 204, 255);
     }
   }
   &.player-4-info-card {
-    bottom:  5%;
-    right: 5%;
+    bottom: 5%;
+    left: 5%;
     mat-card-header {
-      background-color: rgb(255,255,153);
+      background-color: rgb(255, 255, 153);
+    }
+  }
+}
+
+.player-turn {
+  position: fixed;
+  background-color: rgb(210, 210, 210);
+  border-radius: 20px;
+  margin: auto;
+  width: 50%;
+  height: 70%;
+  left: 25%;
+  top: 15%;
+
+  .player-money {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: rgb(204, 255, 204);
+    height: 14%;
+    margin: 2% 2% 0 2%;
+    .name {
+      padding: 2% 0 1% 1%;
+      font-size: 3em;
+    }
+    .money {
+      padding: 0 1%;
+      font-size: 2.5em;
+    }
+  }
+  .wrapper {
+    height: 83%;
+    .player-properties {
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      background-color: rgb(204, 255, 204);
+      font-size: 1.2em;
+      height: 91%;
+      margin: 0 0 2% 2%;
+      padding: 1% 0;
+      position: relative;
+      width: 30%;
+      .property-title {
+        font-size: 2em;
+        padding-left: 1%;
+      }
+      li {
+        line-height: 3em;
+      }
+      .close-btn {
+        position: absolute;
+        bottom: 5%;
+        width: 35%;
+        height: 10%;
+        left: 10%;
+      }
+      .next-player-btn {
+        position: absolute;
+        bottom: 5%;
+        width: 35%;
+        height: 10%;
+        right: 10%;
+      }
+    }
+    .dice-roll {
+      display: block;
+      position: absolute;
+      background-color: saddlebrown;
+      border-radius: 10px;
+      right: 5%;
+      bottom: 5%;
+      width: 60%;
+      height: 75%;
+      .roll-btn {
+        position: absolute;
+        bottom: 5%;
+        width: 40%;
+        height: 10%;
+        left: 30%;
+      }
     }
   }
 }
