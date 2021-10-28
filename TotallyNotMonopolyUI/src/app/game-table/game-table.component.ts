@@ -6,6 +6,8 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 
+// "/api/gameTable - table tiles"
+
 export interface Tile {
   name: string;
   color: string;
@@ -31,6 +33,10 @@ export interface Property {
   styleUrls: ['./game-table.component.scss'],
 })
 export class GameTableComponent implements OnInit {
+  public activeTurn: boolean;
+  public activePlayer: Player;
+  public activePlayerIndex: number;
+  public rolled: boolean;
   tiles: Tile[] = [];
 
   players: Player[] = [
@@ -59,6 +65,10 @@ export class GameTableComponent implements OnInit {
   constructor(public dialog: MatDialog) {
     this.getTilesFromBE();
     this.fillTableWithTiles();
+    this.activePlayerIndex = 0;
+    this.activePlayer = this.players[this.activePlayerIndex];
+    this.activeTurn = true;
+    this.rolled = false;
   }
 
   ngOnInit(): void {}
@@ -167,6 +177,22 @@ export class GameTableComponent implements OnInit {
       rows: 2,
       text: '',
     });
+  }
+  public upgradeBtn(index: number) {
+    console.log('Upgrade: ' + this.activePlayer.properties[index]);
+  }
+  public nextPlayer() {
+    this.activePlayerIndex =
+      this.activePlayerIndex + 1 === 4 ? 0 : this.activePlayerIndex + 1;
+    this.activePlayer = this.players[this.activePlayerIndex];
+    this.rolled = false;
+  }
+
+  public rollDice() {
+    let dice_one = Math.floor(Math.random() * 6 + 1);
+    let dice_two = Math.floor(Math.random() * 6 + 1);
+    console.log('Rolled: ', dice_one, '+', dice_two, '=', dice_one + dice_two);
+    this.rolled = true;
   }
 }
 

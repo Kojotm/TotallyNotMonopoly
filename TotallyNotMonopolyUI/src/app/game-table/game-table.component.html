@@ -1,13 +1,14 @@
 <div class="table-wrapper">
-  <mat-grid-list cols="13" rowHeight=fit>
-    <mat-grid-tile 
+  <mat-grid-list cols="13" rowHeight="fit">
+    <mat-grid-tile
       *ngFor="let tile of tiles"
       [colspan]="tile.cols"
       [rowspan]="tile.rows"
       [style.background]="tile.color"
       [style.background-image]="tile.img"
-      [style.background-size]="'cover'">
-      {{tile.text}}
+      [style.background-size]="'cover'"
+    >
+      {{ tile.text }}
     </mat-grid-tile>
   </mat-grid-list>
 </div>
@@ -15,64 +16,152 @@
 <mat-card class="info-card player-1-info-card">
   <mat-card-header>
     <mat-card-title>Player 1</mat-card-title>
-    <mat-card-subtitle>$ {{players[0].money}}</mat-card-subtitle>
+    <mat-card-subtitle>$ {{ players[0].money }}</mat-card-subtitle>
+    <button
+      mat-raised-button
+      class="active-player-btn"
+      *ngIf="activePlayer === players[0]"
+      (click)="activeTurn = true"
+    >
+      Open menu
+    </button>
   </mat-card-header>
   <mat-card-content>
     <p>Player's porperties:</p>
     <ul>
-      <li *ngFor="let property of players[0].properties">{{property}}</li>
-      <!-- <li>Property 1<i class="fas fa-home"></i></li>
-      <li>Property 2</li>
-      <li>Property 3</li> -->
+      <li *ngFor="let property of players[0].properties">{{ property }}</li>
     </ul>
-    <button mat-raised-button class="upgrades-btn" (click)="openUpgradesMenu(1)">Upgrades</button>
+    <button
+      mat-raised-button
+      class="upgrades-btn"
+      (click)="openUpgradesMenu(1)"
+    >
+      Upgrades
+    </button>
   </mat-card-content>
 </mat-card>
 
 <mat-card class="info-card player-2-info-card">
   <mat-card-header>
     <mat-card-title>Player 2</mat-card-title>
-    <mat-card-subtitle>$ {{players[1].money}}</mat-card-subtitle>
+    <mat-card-subtitle>$ {{ players[1].money }}</mat-card-subtitle>
+    <button
+      mat-raised-button
+      class="active-player-btn"
+      *ngIf="activePlayer === players[1]"
+      (click)="activeTurn = true"
+    >
+      Open menu
+    </button>
   </mat-card-header>
   <mat-card-content>
     <p>Player's porperties:</p>
     <ul>
-      <li *ngFor="let property of players[1].properties">{{property}}</li>
-      <!-- <li>Property 1</li>
-      <li>Property 2 <i class="fas fa-building"></i></li>
-      <li>Property 3</li> -->
+      <li *ngFor="let property of players[1].properties">{{ property }}</li>
     </ul>
-    <button mat-raised-button class="upgrades-btn" (click)="openUpgradesMenu(2)">Upgrades</button>
+    <button
+      mat-raised-button
+      class="upgrades-btn"
+      (click)="openUpgradesMenu(2)"
+    >
+      Upgrades
+    </button>
   </mat-card-content>
 </mat-card>
 
 <mat-card class="info-card player-3-info-card">
   <mat-card-header>
     <mat-card-title>Player 3</mat-card-title>
-    <mat-card-subtitle>$ {{players[2].money}}</mat-card-subtitle>
+    <mat-card-subtitle>$ {{ players[2].money }}</mat-card-subtitle>
+    <button
+      mat-raised-button
+      class="active-player-btn"
+      *ngIf="activePlayer === players[2]"
+      (click)="activeTurn = true"
+    >
+      Open menu
+    </button>
   </mat-card-header>
   <mat-card-content>
     <p>Player's porperties:</p>
-    <ul >
-      <li *ngFor="let property of players[2].properties">{{property}}</li>
+    <ul>
+      <li *ngFor="let property of players[2].properties">{{ property }}</li>
     </ul>
-    <button mat-raised-button class="upgrades-btn" (click)="openUpgradesMenu(3)">Upgrades</button>
+    <button
+      mat-raised-button
+      class="upgrades-btn"
+      (click)="openUpgradesMenu(3)"
+    >
+      Upgrades
+    </button>
   </mat-card-content>
 </mat-card>
 
 <mat-card class="info-card player-4-info-card">
   <mat-card-header>
     <mat-card-title>Player 4</mat-card-title>
-    <mat-card-subtitle>$ {{players[3].money}}</mat-card-subtitle>
+    <mat-card-subtitle>$ {{ players[3].money }}</mat-card-subtitle>
+    <button
+      mat-raised-button
+      class="active-player-btn"
+      *ngIf="activePlayer === players[3]"
+      (click)="activeTurn = true"
+    >
+      Open menu
+    </button>
   </mat-card-header>
   <mat-card-content>
     <p>Player's porperties:</p>
     <ul>
-      <li *ngFor="let property of players[3].properties">{{property}}</li>
-      <!-- <li>Property 1</li>
-      <li>Property 2</li>
-      <li>Property 3</li> -->
+      <li *ngFor="let property of players[3].properties">{{ property }}</li>
     </ul>
-    <button mat-raised-button class="upgrades-btn" (click)="openUpgradesMenu(4)">Upgrades</button>
+    <button
+      mat-raised-button
+      class="upgrades-btn"
+      (click)="openUpgradesMenu(4)"
+    >
+      Upgrades
+    </button>
   </mat-card-content>
 </mat-card>
+
+<div class="player-turn" *ngIf="activeTurn === true">
+  <div class="player-money">
+    <p class="name">Player {{ activePlayer.number }}</p>
+    <p class="money">$ {{ activePlayer.money }}</p>
+  </div>
+  <div class="wrapper">
+    <div class="player-properties">
+      <p class="property-title">Properties</p>
+      <ul>
+        <li *ngFor="let property of activePlayer.properties; let i = index">
+          {{ property }}
+          <button mat-flat-button (click)="upgradeBtn(i)">upgrade</button>
+        </li>
+      </ul>
+      <button mat-raised-button class="close-btn" (click)="activeTurn = false">
+        Close
+      </button>
+      <button
+        mat-raised-button
+        class="next-player-btn"
+        (click)="nextPlayer()"
+        [disabled]="!rolled"
+      >
+        Next player
+      </button>
+    </div>
+
+    <div class="dice-roll">
+      asd
+      <button
+        mat-raised-button
+        class="roll-btn"
+        (click)="rollDice()"
+        [disabled]="rolled"
+      >
+        Roll
+      </button>
+    </div>
+  </div>
+</div>
