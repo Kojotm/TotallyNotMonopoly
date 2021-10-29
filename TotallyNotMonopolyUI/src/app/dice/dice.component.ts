@@ -21,22 +21,26 @@ export class DiceComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.rolled = false;
   }
 
-  rolling = false;
+  rolled = false;
   selectedRollCount = 1;
-  selectedType = 4;
+  selectedType = 2;
   start$ = new Subject();
 
   roller$ = this.start$
     .pipe(
       switchMap(max => {
+        this.rolled = true;
         return timer(0, 50).pipe(take(10), map(_ => {
           let total = 0;
+          let another = 0;
           for(let i = 0; i < this.selectedRollCount; i++){
             total += this.calcRoll(6);
+            another += this.calcRoll(6);
           }
-          return total
+          return [total, another]
         }))
       })
     )
@@ -48,6 +52,7 @@ export class DiceComponent implements OnInit {
 
   start(max: number){
     this.selectedType = max;
+    this.start$.next(max);
     this.start$.next(max);
   }
 
