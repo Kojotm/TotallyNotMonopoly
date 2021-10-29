@@ -13,6 +13,11 @@ namespace Services
     {
         private readonly GameTableContext _context;
 
+        public Task<List<Field>> GetAll()
+        {
+            return _context.Fields.ToListAsync();
+        }
+
         public Task<Field> GetById(int? id)
         {
             return _context.Fields.FirstOrDefaultAsync(field => field.Id == id);
