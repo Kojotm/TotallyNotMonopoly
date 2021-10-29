@@ -1,6 +1,9 @@
 name: Cypress Tests
 
-on:
+on: 
+  push:
+   branches:  
+    - '!main'
   # Triggers the workflow on push or pull request events but only for the main branch
   pull_request:
     branches: [ main ]
