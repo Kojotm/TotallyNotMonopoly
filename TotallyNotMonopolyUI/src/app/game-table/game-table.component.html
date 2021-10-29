@@ -146,22 +146,13 @@
         mat-raised-button
         class="next-player-btn"
         (click)="nextPlayer()"
-        [disabled]="!rolled"
       >
         Next player
       </button>
     </div>
 
     <div class="dice-roll">
-      asd
-      <button
-        mat-raised-button
-        class="roll-btn"
-        (click)="rollDice()"
-        [disabled]="rolled"
-      >
-        Roll
-      </button>
+      <app-dice></app-dice>
     </div>
   </div>
 </div>
