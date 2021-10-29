@@ -1,0 +1,19 @@
+<div class="center">
+
+  <div *ngIf="roller$ | async as result" class="result">
+    {{result}}
+  <div>
+
+  <div *ngIf="roller$ | async as result" class="result2">
+    {{result}}
+  <div>
+
+    <button
+    mat-raised-button
+    class="roll-btn"
+    (click)="start(6)"
+  >
+    Roll
+  </button>
+
+</div>

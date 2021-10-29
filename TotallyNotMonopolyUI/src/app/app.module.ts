@@ -10,7 +10,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card'; 
 import { MatDividerModule } from '@angular/material/divider'; 
 import { MatButtonModule } from '@angular/material/button'; 
-import { MatDialogModule } from '@angular/material/dialog'; 
+import { MatDialogModule } from '@angular/material/dialog';
+import { DiceComponent } from './dice/dice.component'; 
 
 
 const MaterialComponents = [
@@ -25,7 +26,8 @@ const MaterialComponents = [
 @NgModule({
   declarations: [
     AppComponent,
-    GameTableComponent
+    GameTableComponent,
+    DiceComponent
   ],
   imports: [
     BrowserModule,
