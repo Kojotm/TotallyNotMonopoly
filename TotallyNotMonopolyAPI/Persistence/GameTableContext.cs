@@ -16,7 +16,7 @@ namespace Persistence
             _config = config;
         }
 
-        public DbSet<Field> Cards { get; set; }
+        public DbSet<Field> Fields { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
