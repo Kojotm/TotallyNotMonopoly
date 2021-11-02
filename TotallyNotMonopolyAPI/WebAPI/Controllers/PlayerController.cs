@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public ActionResult<Player[]> GetPlayers()
         {
-            Player[] players = playerService.CreateRamdonPlayers();
+            Player[] players = playerService.CreateRandomPlayers();
             return new ActionResult<Player[]>(players);
         }
 
