@@ -29,11 +29,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Start Typedoc
-        uses: actions-go/push@main
+        uses: actions-go/push@master
         with:
          working-directory: ./TotallyNotMonopolyUI
          install: npm install
          build: npm i typedoc
          start: npx typedoc
+         author-email: ''
+         author-name: 'Documentation Bot'
+         create-commit: true
          commit-message: '[Auto] Add documentation'
+         ref: docs
          remote: main
+         fail-if-empty: false
