@@ -1,4 +1,4 @@
-name: Cypress Tests
+name: Cypress Tests + Doc generation
 
 on: 
   push:
@@ -28,9 +28,12 @@ jobs:
   create-documentation:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Start Typedoc
         uses: actions/checkout@v2
-      - uses: TypeStrong/typedoc-action@v1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          
+         working-directory: ./TotallyNotMonopolyUI
+         install: npm install
+         build: npm i typedoc
+         start: npx typedoc
