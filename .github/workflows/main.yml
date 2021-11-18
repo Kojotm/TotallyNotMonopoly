@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Start Typedoc
-        uses: actions-go/push@master
+        uses: actions-go/push@main
         with:
          working-directory: ./TotallyNotMonopolyUI
          install: npm install
