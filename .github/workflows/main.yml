@@ -36,4 +36,4 @@ jobs:
          build: npm i typedoc
          start: npx typedoc
          commit-message: '[Auto] Add documentation'
-         remote: origin
+         remote: main
