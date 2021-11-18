@@ -32,9 +32,5 @@ jobs:
       - uses: actions/checkout@v2
       - uses: TypeStrong/typedoc-action@v1
         with:
-          working-directory: ./TotallyNotMonopolyUI
-          install: npm install
-          build: npm i typedoc
-          start: npx typedoc
           github-token: ${{ secrets.GITHUB_TOKEN }}
           
