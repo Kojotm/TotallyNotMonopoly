@@ -24,3 +24,13 @@ jobs:
           build: npm i -D cypress
           start: npm start
           wait-on: "http://localhost:4200"
+          
+  create-documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start Typedoc
+        with:
+         working-directory: ./TotallyNotMonopolyUI
+         install: npm install
+         build: npm i typedoc
+         start: npx typedoc
