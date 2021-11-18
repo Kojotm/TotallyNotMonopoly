@@ -1,4 +1,4 @@
-name: Cypress Tests
+name: Cypress Tests + Doc generation
 
 on: 
   push:
@@ -28,9 +28,24 @@ jobs:
   create-documentation:
     runs-on: ubuntu-latest
     steps:
-      - name: Start Typedoc
-        uses: actions/checkout@v2
-      - uses: TypeStrong/typedoc-action@v1
+      - uses: actions/checkout@v2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          
+          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+          fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
+      - name: Start Typedoc
+        with:
+         working-directory: ./TotallyNotMonopolyUI
+         install: npm install
+         build: npm i typedoc
+         start: npx typedoc
+      - name: Commit files
+        run: |
+          git add .
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "[Auto] Add documentation" -a
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
