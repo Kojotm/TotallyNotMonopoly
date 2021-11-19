@@ -24,6 +24,20 @@ jobs:
           build: npm i -D cypress
           start: npm start
           wait-on: "http://localhost:4200"
+
+  create-documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Start Typedoc
+        uses: actions/checkout@v2
+        with:
+          working-directory: ./TotallyNotMonopolyUI
+          install: npm install
+          build: npm i typedoc
+          start: npx typedoc
+
   csharp-format:
     runs-on: windows-latest
     steps:
