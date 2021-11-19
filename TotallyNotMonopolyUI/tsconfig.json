@@ -36,6 +36,6 @@
     "node_modules",
     "**/*.spec.ts",
     "cypress",
-    "**/app-routing.*",
+    "**/app-routing.*"
   ]
 }
