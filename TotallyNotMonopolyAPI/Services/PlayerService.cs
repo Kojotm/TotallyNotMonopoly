@@ -1,5 +1,4 @@
 ﻿using Model;
-using System;
 
 namespace Services
 {
@@ -9,7 +8,7 @@ namespace Services
         public Player[] CreateRandomPlayers()
         {
             Player[] players = new Player[4];
-            
+
             Player player1 = new Player();
             player1.Id = 1;
             player1.Money = 1500;

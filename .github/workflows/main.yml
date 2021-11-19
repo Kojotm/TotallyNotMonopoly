@@ -1,4 +1,4 @@
-name: Cypress Tests + Doc generation
+name: Master Pipeline
 
 on: 
   push:
@@ -24,7 +24,7 @@ jobs:
           build: npm i -D cypress
           start: npm start
           wait-on: "http://localhost:4200"
-          
+
   create-documentation:
     runs-on: ubuntu-latest
     steps:
@@ -33,7 +33,25 @@ jobs:
       - name: Start Typedoc
         uses: actions/checkout@v2
         with:
-         working-directory: ./TotallyNotMonopolyUI
-         install: npm install
-         build: npm i typedoc
-         start: npx typedoc
+        working-directory: ./TotallyNotMonopolyUI
+        install: npm install
+        build: npm i typedoc
+        start: npx typedoc
+
+  csharp-format:
+    runs-on: windows-latest
+    steps:
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          working-directory: ./TotallyNotMonopolyAPI
+          dotnet-version: '5.0.x'
+
+      - name: Install dotnet-format tool
+        run: dotnet tool install -g dotnet-format
+
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Run dotnet format
+        run: dotnet format '.\' --folder --check --verbosity diagnostic
