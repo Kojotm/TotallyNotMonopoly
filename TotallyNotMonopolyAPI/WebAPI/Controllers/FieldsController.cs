@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Model.Cards;
-using Persistence;
+﻿using Microsoft.AspNetCore.Mvc;
 using Services;
+using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
+    [Route("api/[controller]")]
     public class FieldsController : Controller
     {
-        readonly FieldService fieldService = new();
+        private readonly IFieldService fieldService;
+
+        public FieldsController(IFieldService fieldService)
+        {
+            this.fieldService = fieldService;
+        }
 
         // GET: Fields
-        public async Task<ActionResult> Index()
+        [HttpGet]
+        public async Task<ActionResult> GetFields()
         {
-            return Ok(fieldService.GetAll());
+            return Ok(await fieldService.GetAll());
         }
 
         // GET: Fields/Details/5

@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Persistence;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,8 @@ namespace WebAPI
             services.AddDbContext<GameTableContext>();
 
             services.AddControllers();
+
+            services.AddTransient<IFieldService, FieldService>();
 
             // Add CORS
 

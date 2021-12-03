@@ -9,18 +9,29 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class FieldService
+    public interface IFieldService
     {
-        private readonly GameTableContext _context;
+        Task<List<Field>> GetAll();
+        Task<Field> GetById(int? id);
+    }
+
+    public class FieldService : IFieldService
+    {
+        private readonly GameTableContext context;
+
+        public FieldService(GameTableContext context)
+        {
+            this.context = context;
+        }
 
         public Task<List<Field>> GetAll()
         {
-            return _context.Fields.ToListAsync();
+            return context.Fields.ToListAsync();
         }
 
         public Task<Field> GetById(int? id)
         {
-            return _context.Fields.FirstOrDefaultAsync(field => field.Id == id);
+            return context.Fields.FirstOrDefaultAsync(field => field.Id == id);
         }
     }
 }

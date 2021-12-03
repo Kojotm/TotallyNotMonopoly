@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-
-// "/api/gameTable - table tiles"
+import { FieldService } from '../services/field.service';
 
 export interface Tile {
   name: string;
@@ -65,7 +64,7 @@ export class GameTableComponent implements OnInit {
   private rightColTiles: Tile[] = [];
   private bottomRowTiles: Tile[] = [];
 
-  constructor() {
+  constructor(private fieldService: FieldService) {
     this.getTilesFromBE();
     this.fillTableWithTiles();
     this.activePlayerIndex = 0;
@@ -74,7 +73,11 @@ export class GameTableComponent implements OnInit {
     this.rolled = false;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fieldService.getField().subscribe((response) => {
+      console.log(response);
+    });
+  }
 
   openUpgradesMenu(number: number) {
     console.log('Player ' + number + "'s upgrade menu");
