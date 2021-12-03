@@ -5,6 +5,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { FieldService } from '../services/field.service';
 
 // "/api/gameTable - table tiles"
 
@@ -62,7 +63,8 @@ export class GameTableComponent implements OnInit {
   private rightColTiles: Tile[] = [];
   private bottomRowTiles: Tile[] = [];
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog,
+              private fieldService: FieldService) {
     this.getTilesFromBE();
     this.fillTableWithTiles();
     this.activePlayerIndex = 0;
@@ -71,7 +73,11 @@ export class GameTableComponent implements OnInit {
     this.rolled = false;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fieldService.getField().subscribe(response => {
+      console.log(response);
+    });
+  }
 
   openUpgradesMenu(number: number) {
     console.log('Player ' + number + "'s upgrade menu");
