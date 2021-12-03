@@ -151,3 +151,12 @@
     }
   }
 }
+.player-figure {
+  position: absolute;
+  z-index: 500;
+  left: 0%;
+  top: 100%;
+  transform: translateY(-200%) translateX(+50%);
+  background-color: rgb(255, 153, 153);
+  color: black;
+}

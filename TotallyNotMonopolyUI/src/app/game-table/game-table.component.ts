@@ -1,10 +1,4 @@
-import { ArrayType } from '@angular/compiler';
 import { Component, Inject, OnInit } from '@angular/core';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
 
 // "/api/gameTable - table tiles"
 
@@ -19,6 +13,7 @@ export interface Tile {
 export interface Player {
   number: number;
   money: number;
+  position: number;
   properties: string[];
 }
 export interface Property {
@@ -43,17 +38,25 @@ export class GameTableComponent implements OnInit {
     {
       number: 1,
       money: 505000,
+      position: 0,
       properties: ['Property 1', 'Property 2', 'Property 3'],
     },
     {
       number: 2,
       money: 5000000,
+      position: 0,
       properties: ['Property 1', 'Property 2', 'Property 3'],
     },
-    { number: 3, money: 500000, properties: ['Property 2', 'Property 3'] },
+    {
+      number: 3,
+      money: 500000,
+      position: 0,
+      properties: ['Property 2', 'Property 3'],
+    },
     {
       number: 4,
       money: 5000000,
+      position: 0,
       properties: ['Property 1', 'Property 2', 'Property 3'],
     },
   ];
@@ -62,7 +65,7 @@ export class GameTableComponent implements OnInit {
   private rightColTiles: Tile[] = [];
   private bottomRowTiles: Tile[] = [];
 
-  constructor(public dialog: MatDialog) {
+  constructor() {
     this.getTilesFromBE();
     this.fillTableWithTiles();
     this.activePlayerIndex = 0;
@@ -76,15 +79,6 @@ export class GameTableComponent implements OnInit {
   openUpgradesMenu(number: number) {
     console.log('Player ' + number + "'s upgrade menu");
     let player: Player = this.players[number - 1];
-    const dialogRef = this.dialog.open(UpgradeMenuDialog, {
-      width: '40%',
-      data: player,
-    });
-    // this.dialog.open(UpgradeMenuDialog, player);
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed.');
-      console.log(result);
-    });
   }
 
   getTilesFromBE() {
@@ -186,23 +180,20 @@ export class GameTableComponent implements OnInit {
       this.activePlayerIndex + 1 === 4 ? 0 : this.activePlayerIndex + 1;
     this.activePlayer = this.players[this.activePlayerIndex];
     this.rolled = false;
+    this.activeTurn = false;
   }
-
   public rollDice() {
     let dice_one = Math.floor(Math.random() * 6 + 1);
     let dice_two = Math.floor(Math.random() * 6 + 1);
     console.log('Rolled: ', dice_one, '+', dice_two, '=', dice_one + dice_two);
     this.rolled = true;
   }
-}
-
-@Component({
-  selector: 'upgrade-menu-dialog',
-  templateUrl: 'upgrade-menu.html',
-})
-export class UpgradeMenuDialog {
-  constructor(
-    public dialogRef: MatDialogRef<UpgradeMenuDialog>,
-    @Inject(MAT_DIALOG_DATA) public player: Player
-  ) {}
+  movePlayer(roll: any[]) {
+    let totalRoll = ((roll[0] as number) + roll[1]) as number;
+    this.activePlayer.position =
+      this.activePlayer.position + totalRoll >= 40
+        ? this.activePlayer.position + totalRoll - 40
+        : this.activePlayer.position + totalRoll;
+    console.log(this.activePlayer.position);
+  }
 }

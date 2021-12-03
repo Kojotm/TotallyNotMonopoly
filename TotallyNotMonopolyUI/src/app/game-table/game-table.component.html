@@ -10,9 +10,11 @@
     >
       {{ tile.text }}
     </mat-grid-tile>
+    <button mat-fab class="player-figure">
+      <i class="fas fa-user-alt"></i>
+    </button>
   </mat-grid-list>
 </div>
-
 <mat-card class="info-card player-1-info-card">
   <mat-card-header>
     <mat-card-title>Player 1</mat-card-title>
@@ -142,11 +144,7 @@
       <button mat-raised-button class="close-btn" (click)="activeTurn = false">
         Close
       </button>
-      <button
-        mat-raised-button
-        class="next-player-btn"
-        (click)="nextPlayer()"
-      >
+      <button mat-raised-button class="next-player-btn" (click)="nextPlayer()">
         Next player
       </button>
     </div>
