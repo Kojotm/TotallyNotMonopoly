@@ -25,7 +25,7 @@ export class DiceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.rolled = false;
+    this.rolled = this.gameTableComponent.rolled;
   }
 
   rolled = false;

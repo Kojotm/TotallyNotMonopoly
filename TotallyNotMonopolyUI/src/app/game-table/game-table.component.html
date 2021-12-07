@@ -1,18 +1,32 @@
-<div class="table-wrapper">
+<h1 class="title">Totally not monopoly</h1>
+
+<div class="table-wrapper" *ngIf="tiles.length > 0">
   <mat-grid-list cols="13" rowHeight="fit">
     <mat-grid-tile
       *ngFor="let tile of tiles"
-      [colspan]="tile.cols"
-      [rowspan]="tile.rows"
-      [style.background]="tile.color"
-      [style.background-image]="tile.img"
-      [style.background-size]="'cover'"
+      [colspan]="tile.col"
+      [rowspan]="tile.row"
+      [style]="getStyle(tile)"
+      (click)="openTileMenu(tile.id)"
     >
-      {{ tile.text }}
+      {{ tile.name }}
+      <span
+        *ngIf="players[0].position === tile.id"
+        class="figure player-1-dot"
+      ></span>
+      <span
+        *ngIf="players[1].position === tile.id"
+        class="figure player-2-dot"
+      ></span>
+      <span
+        *ngIf="players[2].position === tile.id"
+        class="figure player-3-dot"
+      ></span>
+      <span
+        *ngIf="players[3].position === tile.id"
+        class="figure player-4-dot"
+      ></span>
     </mat-grid-tile>
-    <button mat-fab class="player-figure">
-      <i class="fas fa-user-alt"></i>
-    </button>
   </mat-grid-list>
 </div>
 <mat-card class="info-card player-1-info-card">
@@ -144,7 +158,12 @@
       <button mat-raised-button class="close-btn" (click)="activeTurn = false">
         Close
       </button>
-      <button mat-raised-button class="next-player-btn" (click)="nextPlayer()">
+      <button
+        mat-raised-button
+        class="next-player-btn"
+        [disabled]="!rolled"
+        (click)="nextPlayer()"
+      >
         Next player
       </button>
     </div>
