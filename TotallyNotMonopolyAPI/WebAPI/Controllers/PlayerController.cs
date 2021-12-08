@@ -3,9 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Model;
 using Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -16,8 +13,10 @@ namespace WebAPI.Controllers
         [HttpGet]
         public ActionResult<Player[]> GetPlayers()
         {
+
             Player[] players = playerService.CreateRandomPlayers();
             return new ActionResult<Player[]>(players);
+
         }
 
         // GET: PlayerController/Details/5

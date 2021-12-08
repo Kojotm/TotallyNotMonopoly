@@ -1,0 +1,57 @@
+name: Master Pipeline
+
+on: 
+  push:
+   branches:  
+    - '!main'
+  # Triggers the workflow on push or pull request events but only for the main branch
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          working-directory: ./TotallyNotMonopolyUI
+          install: npm install
+          build: npm i -D cypress
+          start: npm start
+          wait-on: "http://localhost:4200"
+
+  create-documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Start Typedoc
+        uses: actions/checkout@v2
+        with:
+          working-directory: ./TotallyNotMonopolyUI
+          install: npm install
+          build: npm i typedoc
+          start: npx typedoc
+
+  csharp-format:
+    runs-on: windows-latest
+    steps:
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          working-directory: ./TotallyNotMonopolyAPI
+          dotnet-version: '5.0.x'
+
+      - name: Install dotnet-format tool
+        run: dotnet tool install -g dotnet-format
+
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Run dotnet format
+        run: dotnet format '.\' --folder --check --verbosity diagnostic
