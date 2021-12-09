@@ -11,7 +11,6 @@ namespace Persistence
             var client = new MongoClient(settings);
             var ranking = client.GetDatabase("ranking");
             var finalranking = ranking.GetCollection<Ranking>("ranking");
-            
             return finalranking;
         }
     }
