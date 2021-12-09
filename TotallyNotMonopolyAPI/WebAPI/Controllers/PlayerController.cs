@@ -13,10 +13,10 @@ namespace WebAPI.Controllers
         [HttpGet]
         public ActionResult<Player[]> GetPlayers()
         {
-            //Player[] players = playerService.CreateRamdomPlayers();
-            //return new ActionResult<Player[]>(players);
 
-            return null;
+            Player[] players = playerService.CreateRandomPlayers();
+            return new ActionResult<Player[]>(players);
+
         }
 
         // GET: PlayerController/Details/5
