@@ -1,21 +1,17 @@
 ﻿using Model;
 using MongoDB.Driver;
 using Persistence;
-using Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services
 {
     public class DataBaseService
     {
-        DataBaseConection dataBase = new DataBaseConection();
+        readonly DataBaseConection dataBase = new();
         public Ranking GetRanking()
         {
-            Ranking ranking = new Ranking();
+            Ranking ranking = new();
             List<Ranking> lst = dataBase.DataBaseMongo().Find(d => true).ToList();
             ranking.Name = lst.Find(d => true).Name;
             ranking.RankingNames = lst.Find(d => true).RankingNames;

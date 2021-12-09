@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Model;
 using MongoDB.Driver;
-using Model;
 
 namespace Persistence
 {
-    public class DataBaseConection 
+    public class DataBaseConection
     {
         public IMongoCollection<Ranking> DataBaseMongo()
         {
@@ -19,6 +14,5 @@ namespace Persistence
             
             return finalranking;
         }
-        
     }
 }

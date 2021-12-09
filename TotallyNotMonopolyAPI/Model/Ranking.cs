@@ -26,5 +26,5 @@ namespace Model
             }
             return res;
         }
-    }    
+    }
 }
