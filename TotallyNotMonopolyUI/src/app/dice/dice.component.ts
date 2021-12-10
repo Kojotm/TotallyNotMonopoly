@@ -6,22 +6,26 @@ import {
   state,
   style,
   animate,
-  transition
+  transition,
 } from '@angular/animations';
 
-import { filter, map, switchMap, tap, take } from 'rxjs/operators'
+import { filter, map, switchMap, tap, take } from 'rxjs/operators';
+import { GameTableComponent } from '../game-table/game-table.component';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-dice',
   templateUrl: './dice.component.html',
-  styleUrls: ['./dice.component.scss']
+  styleUrls: ['./dice.component.scss'],
 })
 export class DiceComponent implements OnInit {
-
-  constructor() { }
+  public roll: number[];
+  constructor(private gameTableComponent: GameTableComponent) {
+    this.roll = [];
+  }
 
   ngOnInit(): void {
-    this.rolled = false;
+    this.rolled = this.gameTableComponent.rolled;
   }
 
   rolled = false;
@@ -29,31 +33,37 @@ export class DiceComponent implements OnInit {
   selectedType = 2;
   start$ = new Subject();
 
-  roller$ = this.start$
-    .pipe(
-      switchMap(max => {
-        this.rolled = true;
-        return timer(0, 50).pipe(take(10), map(_ => {
-          let total = 0;
-          let another = 0;
-          for(let i = 0; i < this.selectedRollCount; i++){
-            total += this.calcRoll(6);
-            another += this.calcRoll(6);
-          }
-          return [total, another]
-        }))
-      })
-    )
+  roller$ = this.start$.pipe(
+    switchMap((max) => {
+      this.rolled = true;
+      let rolls = timer(0, 50).pipe(
+        take(10),
+        map(() => {
+          let dice1 = this.calcRoll(this.selectedType);
+          let dice2 = this.calcRoll(this.selectedType);
+          this.roll.push(dice1);
+          this.roll.push(dice2);
+          this.movePlayer();
+          return [dice1, dice2];
+        })
+      );
+      return rolls;
+    })
+  );
 
-  calcRoll(max: number){
+  calcRoll(max: number): number {
     const min = 1;
-    return Number((Math.random() * (max - min) + min).toFixed(0));
+    let number = Number((Math.random() * (max - min) + min).toFixed(0));
+    return number;
   }
 
-  start(max: number){
+  start(max: number) {
+    this.roll = [];
     this.selectedType = max;
     this.start$.next(max);
-    this.start$.next(max);
   }
-
+  movePlayer() {
+    if (this.roll.length === 20)
+      this.gameTableComponent.movePlayer(this.roll.slice(18));
+  }
 }

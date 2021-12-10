@@ -1,16 +1,22 @@
 <div class="center">
   <div>
-    <button mat-raised-button class="roll-btn" (click)="start(6)" [disabled]="rolled">
+    <button
+      mat-raised-button
+      class="roll-btn"
+      (click)="start(6)"
+      [disabled]="rolled"
+    >
       Roll
     </button>
   </div>
 
   <div *ngIf="roller$ | async as result">
     <div class="result">
-      {{result[0]}}
+      {{ result[0] }}
     </div>
     <div class="result2">
-      {{result[1]}}
+      {{ result[1] }}
     </div>
-  <div>
+    <div></div>
+  </div>
 </div>

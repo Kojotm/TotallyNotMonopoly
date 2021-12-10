@@ -429,8 +429,8 @@
     "Value": 150,
     "Level": 0,
     "UpgradeCost": 0,
-    "Col": 1,
-    "Row": 2,
+    "Col": 2,
+    "Row": 1,
     "Type": "Utility",
     "SetNumber": 1
   },

@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(GameTableContext))]
-    partial class GameTableContextModelSnapshot : ModelSnapshot
+    [Migration("20211203145742_addnames")]
+    partial class addnames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,6 +168,22 @@ namespace Persistence.Migrations
                         {
                             Id = 7,
                             Col = 2,
+                            Color = 1,
+                            Description = ".",
+                            Image = "",
+                            Level = 0,
+                            Name = "7",
+                            Rent = "6,30,90,270,400,550",
+                            Row = 1,
+                            SetNumber = 1,
+                            Type = 3,
+                            UpgradeCost = 50,
+                            Value = 100
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Col = 2,
                             Color = 8,
                             Description = ".",
                             Image = "",
@@ -177,22 +195,6 @@ namespace Persistence.Migrations
                             Type = 0,
                             UpgradeCost = 0,
                             Value = 0
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Col = 2,
-                            Color = 1,
-                            Description = ".",
-                            Image = "",
-                            Level = 0,
-                            Name = "8",
-                            Rent = "6,30,90,270,400,550",
-                            Row = 1,
-                            SetNumber = 1,
-                            Type = 3,
-                            UpgradeCost = 50,
-                            Value = 100
                         },
                         new
                         {
@@ -517,14 +519,14 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 29,
-                            Col = 2,
+                            Col = 1,
                             Color = 8,
                             Description = ".",
                             Image = "",
                             Level = 0,
                             Name = "Water works",
                             Rent = "4,10",
-                            Row = 1,
+                            Row = 2,
                             SetNumber = 1,
                             Type = 6,
                             UpgradeCost = 0,
