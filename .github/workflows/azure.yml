@@ -33,11 +33,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ env.NODE_VERSION }}
+    
       uses: actions/setup-node@v2
       with:
+        working-directory: ./TotallyNotMonopolyUI
         node-version: ${{ env.NODE_VERSION }}
     - name: npm install, build, and test
+    
       run: |
+        working-directory: ./TotallyNotMonopolyUI
         # Build and test the project, then
         # deploy to Azure Web App.
         npm install
