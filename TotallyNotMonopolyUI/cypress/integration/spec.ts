@@ -15,24 +15,6 @@ describe('Testing game table and dice throwing', () => {
     cy.get('.player-4-info-card').contains('Player 4');
   });
 
-  //   it('Checking if all players\' properties are visible', () => {
-  //   cy.visit('/');
-  //   cy.get('.player-1-info-card').contains('Property 1')
-  //   cy.get('.player-1-info-card').contains('Property 2')
-  //   cy.get('.player-1-info-card').contains('Property 3')
-
-  //   cy.get('.player-2-info-card').contains('Property 1')
-  //   cy.get('.player-2-info-card').contains('Property 2')
-  //   cy.get('.player-2-info-card').contains('Property 3')
-
-  //   cy.get('.player-3-info-card').contains('Property 2')
-  //   cy.get('.player-3-info-card').contains('Property 3')
-
-  //   cy.get('.player-4-info-card').contains('Property 1')
-  //   cy.get('.player-4-info-card').contains('Property 2')
-  //   cy.get('.player-4-info-card').contains('Property 3')
-  // })
-
   it("Checking if all players' money are visible", () => {
     cy.visit('/');
     cy.get('.player-1-info-card').contains('$ 505000');
