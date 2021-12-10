@@ -32,6 +32,7 @@ namespace WebAPI
             services.AddControllers();
 
             services.AddTransient<IFieldService, FieldService>();
+            services.AddTransient<ICardService, CardService>();
 
             // Add CORS
 
