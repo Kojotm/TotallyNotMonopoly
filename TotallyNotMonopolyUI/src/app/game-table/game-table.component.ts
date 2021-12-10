@@ -61,7 +61,7 @@ export class GameTableComponent implements OnInit {
     {
       number: 1,
       money: Number(1000),
-      position: 33,
+      position: 1,
       properties: [],
       hasGetOutOfJail: false,
       isJailed: false,
@@ -203,7 +203,6 @@ export class GameTableComponent implements OnInit {
   movePlayer(roll: any[]) {
     this.rolled = true;
     let totalRoll = ((roll[0] as number) + roll[1]) as number;
-    totalRoll = 1;
     if (this.activePlayer.isJailed && roll[0] !== roll[1]) {
       this.activePlayer.money = Number(this.activePlayer.money) - 50;
       this.activePlayer.isJailed = false;
