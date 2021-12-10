@@ -1,4 +1,12 @@
 <h1 class="title">Totally not monopoly</h1>
+<button
+  mat-raised-button
+  class="next-player-main-btn"
+  [disabled]="!rolled"
+  (click)="nextPlayer()"
+>
+  Next player
+</button>
 
 <div class="table-wrapper" *ngIf="tiles.length > 0">
   <mat-grid-list cols="13" rowHeight="fit">
@@ -33,7 +41,11 @@
 </div>
 
 <div *ngFor="let player of players">
-  <mat-card class="info-card" [ngClass]="getClass(player)">
+  <mat-card
+    class="info-card"
+    [ngClass]="getClass(player)"
+    *ngIf="player.money >= 0"
+  >
     <mat-card-header>
       <mat-card-title>Player {{ player.number }}</mat-card-title>
       <mat-card-subtitle>$ {{ player.money }}</mat-card-subtitle>
@@ -148,3 +160,11 @@
   (click)="tileMenu = false"
   *ngIf="tileMenu && (activeTile.type === 3 || activeTile.type === 2)"
 ></div>
+<div
+  class="chance-card fortune-card"
+  *ngIf="isCardDrawn"
+  (click)="isCardDrawn = false"
+>
+  <h3>Card</h3>
+  <p>{{ drawnCard.description }}</p>
+</div>

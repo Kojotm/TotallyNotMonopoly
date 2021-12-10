@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { CardService } from '../services/card.service';
 import { FieldService } from '../services/field.service';
 
 export interface Tile {
@@ -16,11 +17,19 @@ export interface Tile {
   value: number;
   type: any;
 }
+export interface Card {
+  id: number;
+  description: string;
+  type: string;
+  amount: string;
+}
 export interface Player {
   number: number;
   money: number;
   position: number;
   properties: Tile[];
+  hasGetOutOfJail: boolean;
+  isJailed: boolean;
 }
 export interface Property {
   name: string;
@@ -34,6 +43,8 @@ export interface Property {
   styleUrls: ['./game-table.component.scss'],
 })
 export class GameTableComponent implements OnInit {
+  public isCardDrawn: boolean;
+  public drawnCard!: Card;
   public activeTurn: boolean;
   public activePlayer: Player;
   public activePlayerIndex: number;
@@ -49,27 +60,35 @@ export class GameTableComponent implements OnInit {
   players: Player[] = [
     {
       number: 1,
-      money: Number(5000),
+      money: Number(1000),
       position: 1,
       properties: [],
+      hasGetOutOfJail: false,
+      isJailed: false,
     },
     {
       number: 2,
-      money: Number(5000),
+      money: Number(1000),
       position: 1,
       properties: [],
+      hasGetOutOfJail: false,
+      isJailed: false,
     },
     {
       number: 3,
-      money: Number(5000),
+      money: Number(1000),
       position: 1,
       properties: [],
+      hasGetOutOfJail: false,
+      isJailed: false,
     },
     {
       number: 4,
-      money: Number(5000),
+      money: Number(1000),
       position: 1,
       properties: [],
+      hasGetOutOfJail: false,
+      isJailed: false,
     },
   ];
 
@@ -78,12 +97,16 @@ export class GameTableComponent implements OnInit {
   private rightColTiles: Tile[] = [];
   private bottomRowTiles: Tile[] = [];
 
-  constructor(private fieldService: FieldService) {
+  constructor(
+    private fieldService: FieldService,
+    private cardService: CardService
+  ) {
     this.getTilesFromBE();
     this.activePlayerIndex = 0;
     this.activePlayer = this.players[this.activePlayerIndex];
     this.activeTurn = false;
     this.rolled = false;
+    this.isCardDrawn = false;
   }
 
   ngOnInit(): void {}
@@ -178,9 +201,12 @@ export class GameTableComponent implements OnInit {
   }
 
   movePlayer(roll: any[]) {
-    console.log(this.tiles);
     this.rolled = true;
     let totalRoll = ((roll[0] as number) + roll[1]) as number;
+    if (this.activePlayer.isJailed && roll[0] !== roll[1]) {
+      this.activePlayer.money = Number(this.activePlayer.money) - 50;
+      this.activePlayer.isJailed = false;
+    }
     let newPosition = totalRoll + this.activePlayer.position;
     if (newPosition > 40)
       this.activePlayer.money = Number(this.activePlayer.money) + 200;
@@ -189,15 +215,43 @@ export class GameTableComponent implements OnInit {
     this.checkActiveTile(totalRoll);
   }
 
-  checkActiveTile(roll: number) {
+  async checkActiveTile(roll: number) {
     let currentTile = this.findTile(this.activePlayer.position) as Tile;
+
+    if (currentTile.type === 0) {
+      await this.cardService
+        .getFortuneCard()
+        .toPromise()
+        .then((resp) => (this.drawnCard = resp as Card))
+        .catch((err) => console.error(err));
+      console.log(this.drawnCard);
+      let action = this.getActionFromCard(this.drawnCard);
+      console.log(this.players);
+      console.log(this.activePlayer);
+      if (action !== null) currentTile = action as Tile;
+      else return;
+    }
+    if (currentTile.type === 1) {
+      await this.cardService
+        .getChanceCard()
+        .toPromise()
+        .then((resp) => (this.drawnCard = resp as Card))
+        .catch((err) => console.error(err));
+      console.log(this.drawnCard);
+      let action = this.getActionFromCard(this.drawnCard);
+      if (action !== null) currentTile = action as Tile;
+      else return;
+    }
+    if (currentTile.id === 31) {
+      this.activePlayer.position = 11;
+      if (this.activePlayer.hasGetOutOfJail)
+        this.activePlayer.hasGetOutOfJail = false;
+      else this.activePlayer.isJailed = true;
+      return;
+    }
     //Penalty tiles
     if (currentTile.type === 4) {
       this.activePlayer.money = this.activePlayer.money - currentTile.rent[0];
-      return;
-    }
-    //Chance or Community chest
-    if (currentTile.type === 0 || currentTile.type === 1) {
       return;
     }
     //Otherwise
@@ -205,8 +259,7 @@ export class GameTableComponent implements OnInit {
       currentTile.owner !== null || currentTile.owner !== 0
         ? currentTile.owner
         : null;
-    if (hasOwner === null) return;
-    if (hasOwner === this.activePlayer.number) return;
+    if (hasOwner === null || hasOwner === this.activePlayer.number) return;
 
     let rent: number =
       currentTile.type === 6
@@ -215,6 +268,95 @@ export class GameTableComponent implements OnInit {
     let owner: Player = this.players[currentTile.owner];
     this.activePlayer.money = +this.activePlayer.money - rent;
     owner.money = Number(owner.money) + Number(rent);
+  }
+
+  getActionFromCard(card: Card) {
+    this.isCardDrawn = true;
+    switch (card.type) {
+      case 'advance':
+        let property = this.findTileByName(card.amount) as Tile;
+        if (this.activePlayer.position > property.id) {
+          this.activePlayer.money = Number(this.activePlayer.money) + 200;
+        }
+        this.activePlayer.position = property.id;
+        console.log(this.activePlayer.position);
+        console.log(property);
+        return property;
+      case 'earn':
+        this.activePlayer.money =
+          Number(this.activePlayer.money) + Number(card.amount);
+        return null;
+      case 'spend':
+        this.activePlayer.money =
+          Number(this.activePlayer.money) - Number(card.amount);
+        return null;
+      case 'jail-card':
+        this.activePlayer.hasGetOutOfJail = true;
+        return null;
+      case 'jail':
+        property = this.findTile(11);
+        this.activePlayer.position = property.id;
+        this.activePlayer.isJailed = true;
+        return property;
+      case 'earn-each-player':
+        for (let player of this.players) {
+          player.money = Number(player.money) - Number(card.amount);
+          this.activePlayer.money =
+            Number(this.activePlayer.money) + Number(card.amount);
+        }
+        return null;
+      case 'spend-each-player':
+        for (let player of this.players) {
+          player.money = Number(player.money) + Number(card.amount);
+          this.activePlayer.money =
+            Number(this.activePlayer.money) - Number(card.amount);
+        }
+        return null;
+      case 'repairs':
+        for (let property of this.activePlayer.properties) {
+          this.activePlayer.money =
+            Number(this.activePlayer.money) -
+            Number(Number(property.level) * 25);
+        }
+        return null;
+      case 'back':
+        let newPosition = this.activePlayer.position - Number(card.amount);
+        if (newPosition <= 0) newPosition = newPosition + 40;
+        this.activePlayer.position = newPosition;
+        return this.findTile(newPosition);
+    }
+  }
+
+  // infoCard -> info
+  // let info -> delete
+  findTileByName(infoCard: string) {
+    let info = infoCard.split(',')[0];
+    if (info === 'Tram') {
+      let i = this.activePlayer.position;
+      for (i; i < 40; i++) {
+        let property: Tile = this.findTile(i);
+        if (property.type === 2) return property;
+      }
+      for (i = 0; i < this.tiles.length; i++) {
+        let property: Tile = this.findTile(i);
+        if (property.type === 2) return property;
+      }
+    }
+    if (info === 'Utility') {
+      let i = this.activePlayer.position;
+      for (i; i < 40; i++) {
+        let property: Tile = this.findTile(i);
+        if (property.type === 6) return property;
+      }
+      for (i = 0; i < this.tiles.length; i++) {
+        let property: Tile = this.findTile(i);
+        if (property.type === 6) return property;
+      }
+    }
+    for (let property of this.tiles) {
+      if (property.name === info) return property;
+    }
+    return;
   }
 
   getColor(tile: Tile) {

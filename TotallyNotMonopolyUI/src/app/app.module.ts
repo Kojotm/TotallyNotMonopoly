@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DiceComponent } from './dice/dice.component';
 import { FieldService } from './services/field.service';
 import { HttpClientModule } from '@angular/common/http';
+import { CardService } from './services/card.service';
 
 const MaterialComponents = [
   MatGridListModule,
@@ -32,7 +33,7 @@ const MaterialComponents = [
     HttpClientModule,
     MaterialComponents,
   ],
-  providers: [FieldService],
+  providers: [FieldService, CardService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

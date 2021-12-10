@@ -7,6 +7,14 @@
   z-index: 10;
   font-weight: 500;
 }
+.next-player-main-btn {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 10;
+  font-weight: 500;
+}
 .table-wrapper {
   position: absolute;
   left: 50%;
@@ -240,4 +248,17 @@
   height: 100%;
   z-index: 100;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.fortune-card,
+.chance-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  padding: 20px;
+  background-color: blanchedalmond;
+  border: 2px solid black;
+  border-radius: 20px;
+  z-index: 500;
 }
