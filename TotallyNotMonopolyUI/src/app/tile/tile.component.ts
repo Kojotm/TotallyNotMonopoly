@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Tile } from '../game-table/game-table.component';
+import { TileService } from '../services/tile.service';
 
 @Component({
   selector: 'app-tile',
@@ -8,15 +9,18 @@ import { Tile } from '../game-table/game-table.component';
 })
 export class TileComponent implements OnInit {
   public tile!: Tile;
-  public isActive: boolean = false;
+  isActive: boolean;
 
-  constructor() {}
+  constructor(public tileService: TileService) {
+    this.isActive = this.tileService.getIsActive();
+  }
 
   ngOnInit(): void {}
 
   setTile(tile: Tile) {
     console.log(this.isActive);
-    this.isActive = true;
+    this.tileService.setIsActive(true);
+    this.isActive = this.tileService.getIsActive();
     console.log(this.isActive);
 
     this.tile = tile;

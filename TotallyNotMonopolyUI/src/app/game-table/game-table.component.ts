@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FieldService } from '../services/field.service';
+import { TileService } from '../services/tile.service';
 import { TileComponent } from '../tile/tile.component';
 
 export interface Tile {
@@ -75,7 +76,8 @@ export class GameTableComponent implements OnInit {
 
   constructor(
     private fieldService: FieldService,
-    private tileComponent: TileComponent
+    private tileComponent: TileComponent,
+    private tileService: TileService
   ) {
     this.getTilesFromBE();
     this.activePlayerIndex = 0;
@@ -106,6 +108,7 @@ export class GameTableComponent implements OnInit {
       })
       .catch((err) => console.error(err));
   }
+
   fillTableWithTiles() {
     this.tiles = [];
     this.tiles.push(this.jail);
@@ -132,9 +135,11 @@ export class GameTableComponent implements OnInit {
     this.bottomRowTiles.forEach((tile) => this.tiles.push(tile));
     this.tiles.push(this.goToJail);
   }
+
   public upgradeBtn(index: number) {
     console.log('Upgrade: ' + this.activePlayer.properties[index]);
   }
+
   public nextPlayer() {
     this.activePlayerIndex =
       this.activePlayerIndex + 1 === 4 ? 0 : this.activePlayerIndex + 1;
@@ -142,6 +147,7 @@ export class GameTableComponent implements OnInit {
     this.rolled = false;
     this.activeTurn = false;
   }
+
   movePlayer(roll: any[]) {
     this.rolled = true;
     let totalRoll = ((roll[0] as number) + roll[1]) as number;
@@ -150,6 +156,7 @@ export class GameTableComponent implements OnInit {
         ? this.activePlayer.position + totalRoll - 40
         : this.activePlayer.position + totalRoll;
   }
+
   getColor(tile: Tile) {
     switch (tile.color) {
       case 0:
@@ -172,9 +179,11 @@ export class GameTableComponent implements OnInit {
         return '#E9E6DB';
     }
   }
+
   getClass(player: Player) {
     return 'player-' + player.number + '-info-card';
   }
+
   getStyle(tile: Tile) {
     let style: any;
     if (tile.name !== '') {
@@ -188,8 +197,11 @@ export class GameTableComponent implements OnInit {
     return style;
   }
   openTileMenu(id: number) {
+    if(id === 0) return;
+
     this.tileComponent.setTile(this.findTile(id));
   }
+
   findTile(id: number): any {
     for (let tile of this.tiles) {
       if (tile.id === id) return tile;
