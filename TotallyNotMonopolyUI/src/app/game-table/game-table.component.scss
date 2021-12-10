@@ -21,7 +21,8 @@
     mat-grid-tile {
       background-repeat: no-repeat;
       background-size: contain;
-      font-size: 1.2em;
+      font-size: 1em;
+      text-align: center;
       font-weight: 500;
       color: auto;
       .figure {
@@ -67,19 +68,16 @@
   }
   .active-player-btn {
     height: 100%;
-    margin: 1% 5% 0 auto;
-  }
-  mat-card-content {
-    width: 90%;
-    margin: 2% auto;
-  }
-  .upgrades-btn {
     margin: 0 10% 0 10%;
     width: 80%;
     background-color: rgb(210, 210, 210);
     &:hover {
       background-color: rgb(180, 180, 180);
     }
+  }
+  mat-card-content {
+    width: 90%;
+    margin: 2% auto;
   }
   &.player-1-info-card {
     top: 5%;

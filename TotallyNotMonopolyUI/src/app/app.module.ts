@@ -14,33 +14,31 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DiceComponent } from './dice/dice.component';
 import { FieldService } from './services/field.service';
 import { HttpClientModule } from '@angular/common/http';
-
+import { TileComponent } from './tile/tile.component';
 
 const MaterialComponents = [
   MatGridListModule,
   MatCardModule,
   MatDividerModule,
   MatButtonModule,
-  MatDialogModule
-]
-
+  MatDialogModule,
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     GameTableComponent,
-    DiceComponent
+    DiceComponent,
+    TileComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialComponents
+    MaterialComponents,
   ],
-  providers: [
-    FieldService
-  ],
-  bootstrap: [AppComponent]
+  providers: [FieldService, TileComponent],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

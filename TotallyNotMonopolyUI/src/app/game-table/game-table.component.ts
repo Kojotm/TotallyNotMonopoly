@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FieldService } from '../services/field.service';
+import { TileComponent } from '../tile/tile.component';
 
 export interface Tile {
   id: number;
@@ -8,7 +9,7 @@ export interface Tile {
   image: string;
   col: number;
   row: number;
-  text: string;
+  description: string;
   rent: number[];
   level: number;
 }
@@ -33,6 +34,7 @@ export class GameTableComponent implements OnInit {
   public activeTurn: boolean;
   public activePlayer: Player;
   public activePlayerIndex: number;
+  public activeTile!: Tile;
   public rolled: boolean;
   public tiles: Tile[] = [];
   public start!: Tile;
@@ -71,7 +73,10 @@ export class GameTableComponent implements OnInit {
   private rightColTiles: Tile[] = [];
   private bottomRowTiles: Tile[] = [];
 
-  constructor(private fieldService: FieldService) {
+  constructor(
+    private fieldService: FieldService,
+    private tileComponent: TileComponent
+  ) {
     this.getTilesFromBE();
     this.activePlayerIndex = 0;
     this.activePlayer = this.players[this.activePlayerIndex];
@@ -80,11 +85,6 @@ export class GameTableComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-
-  openUpgradesMenu(number: number) {
-    console.log('Player ' + number + "'s upgrade menu");
-    let player: Player = this.players[number - 1];
-  }
 
   async getTilesFromBE() {
     await this.fieldService
@@ -102,13 +102,11 @@ export class GameTableComponent implements OnInit {
         this.rightColTiles = tiles.slice(21, 30);
         this.goToJail = tiles[30];
         this.bottomRowTiles = tiles.slice(31, 40).reverse();
-        console.log(this.bottomRowTiles);
         this.fillTableWithTiles();
       })
       .catch((err) => console.error(err));
   }
   fillTableWithTiles() {
-    console.log('fillin table');
     this.tiles = [];
     this.tiles.push(this.jail);
     this.topRowTiles.forEach((tile) => this.tiles.push(tile));
@@ -123,7 +121,7 @@ export class GameTableComponent implements OnInit {
           image: '',
           col: 1,
           row: 1,
-          text: '',
+          description: '',
           rent: [],
           level: 0,
         });
@@ -151,7 +149,6 @@ export class GameTableComponent implements OnInit {
       this.activePlayer.position + totalRoll > 40
         ? this.activePlayer.position + totalRoll - 40
         : this.activePlayer.position + totalRoll;
-    console.log(this.activePlayer.position);
   }
   getColor(tile: Tile) {
     switch (tile.color) {
@@ -175,6 +172,9 @@ export class GameTableComponent implements OnInit {
         return '#E9E6DB';
     }
   }
+  getClass(player: Player) {
+    return 'player-' + player.number + '-info-card';
+  }
   getStyle(tile: Tile) {
     let style: any;
     if (tile.name !== '') {
@@ -188,8 +188,7 @@ export class GameTableComponent implements OnInit {
     return style;
   }
   openTileMenu(id: number) {
-    let tile: Tile = this.findTile(id);
-    if (tile) console.log(tile);
+    this.tileComponent.setTile(this.findTile(id));
   }
   findTile(id: number): any {
     for (let tile of this.tiles) {
