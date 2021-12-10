@@ -72,6 +72,7 @@ export class GameTableComponent implements OnInit {
       properties: [],
     },
   ];
+
   private leftcolTiles: Tile[] = [];
   private topRowTiles: Tile[] = [];
   private rightColTiles: Tile[] = [];
@@ -107,14 +108,6 @@ export class GameTableComponent implements OnInit {
       })
       .catch((err) => console.error(err));
   }
-  rentsToArray() {
-    for (let tile of this.tiles) {
-      if (tile.rent.length > 0) {
-        let rent = tile.rent as string;
-        tile.rent = rent.split(',');
-      }
-    }
-  }
 
   fillTableWithTiles() {
     this.tiles = [];
@@ -148,12 +141,21 @@ export class GameTableComponent implements OnInit {
     this.rentsToArray();
   }
 
-  public upgradeBtn(property: Tile) {
+  rentsToArray() {
+    for (let tile of this.tiles) {
+      if (tile.rent.length > 0) {
+        let rent = tile.rent as string;
+        tile.rent = rent.split(',');
+      }
+    }
+  }
+
+  upgradeBtn(property: Tile) {
     this.activePlayer.money -= property.upgradeCost;
     property.level += 1;
   }
 
-  public nextPlayer() {
+  nextPlayer() {
     this.activePlayerIndex =
       this.activePlayerIndex + 1 === 4 ? 0 : this.activePlayerIndex + 1;
 
@@ -166,6 +168,7 @@ export class GameTableComponent implements OnInit {
       this.nextPlayer();
     }
   }
+
   deletePlayer() {
     for (let property of this.activePlayer.properties) {
       property.owner = 0;
@@ -175,29 +178,43 @@ export class GameTableComponent implements OnInit {
   }
 
   movePlayer(roll: any[]) {
+    console.log(this.tiles);
     this.rolled = true;
-
-    console.log(roll[0], roll[1]);
     let totalRoll = ((roll[0] as number) + roll[1]) as number;
-
     let newPosition = totalRoll + this.activePlayer.position;
+    if (newPosition > 40)
+      this.activePlayer.money = Number(this.activePlayer.money) + 200;
     this.activePlayer.position =
       newPosition > 40 ? newPosition - 40 : newPosition;
-    this.checkActiveTile();
+    this.checkActiveTile(totalRoll);
   }
-  checkActiveTile() {
+
+  checkActiveTile(roll: number) {
     let currentTile = this.findTile(this.activePlayer.position) as Tile;
-    let owner =
+    //Penalty tiles
+    if (currentTile.type === 4) {
+      this.activePlayer.money = this.activePlayer.money - currentTile.rent[0];
+      return;
+    }
+    //Chance or Community chest
+    if (currentTile.type === 0 || currentTile.type === 1) {
+      return;
+    }
+    //Otherwise
+    let hasOwner =
       currentTile.owner !== null || currentTile.owner !== 0
         ? currentTile.owner
         : null;
-    if (owner !== null && owner !== this.activePlayer.number) {
-      let owner: Player = this.players[currentTile.owner];
-      console.log(owner);
-      let rent: number = currentTile.rent[currentTile.level];
-      this.activePlayer.money = +this.activePlayer.money - rent;
-      owner.money = Number(owner.money) + Number(rent);
-    }
+    if (hasOwner === null) return;
+    if (hasOwner === this.activePlayer.number) return;
+
+    let rent: number =
+      currentTile.type === 6
+        ? roll * currentTile.rent[currentTile.level]
+        : currentTile.rent[currentTile.level];
+    let owner: Player = this.players[currentTile.owner];
+    this.activePlayer.money = +this.activePlayer.money - rent;
+    owner.money = Number(owner.money) + Number(rent);
   }
 
   getColor(tile: Tile) {
@@ -239,6 +256,7 @@ export class GameTableComponent implements OnInit {
     }
     return style;
   }
+
   openTileMenu(id: number) {
     if (id === 0) return;
     this.activeTile = this.findTile(id);
@@ -255,9 +273,38 @@ export class GameTableComponent implements OnInit {
       if (tile.id === id) return tile;
     }
   }
+
   buyProperty() {
     this.activePlayer.money -= this.activeTile.value;
     this.activeTile.owner = this.activePlayer.number;
     this.activePlayer.properties.push(this.activeTile);
+    if (this.activeTile.type === 2) {
+      let tramLevel = this.getTramLevel();
+      for (let property of this.activePlayer.properties) {
+        if (property.type === 2) property.level = tramLevel;
+      }
+    }
+    if (this.activeTile.type === 6) {
+      let utilityLevel = this.getUtilityLevel();
+      for (let property of this.activePlayer.properties) {
+        if (property.type === 6) property.level = utilityLevel;
+      }
+    }
+  }
+
+  getTramLevel() {
+    let level = -1;
+    for (let property of this.activePlayer.properties) {
+      if (property.type === 2) level++;
+    }
+    return level;
+  }
+
+  getUtilityLevel() {
+    let level = -1;
+    for (let property of this.activePlayer.properties) {
+      if (property.type === 6) level++;
+    }
+    return level;
   }
 }
