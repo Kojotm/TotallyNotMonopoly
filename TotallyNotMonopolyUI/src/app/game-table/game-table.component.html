@@ -9,7 +9,9 @@
       [style]="getStyle(tile)"
       (click)="openTileMenu(tile.id)"
     >
-      {{ tile.name }}
+      <span *ngIf="tile.type !== 5">
+        {{ tile.name }}
+      </span>
       <span
         *ngIf="players[0].position === tile.id"
         class="figure player-1-dot"
@@ -33,13 +35,15 @@
 <div *ngFor="let player of players">
   <mat-card class="info-card" [ngClass]="getClass(player)">
     <mat-card-header>
-      <mat-card-title>Player 1</mat-card-title>
+      <mat-card-title>Player {{ player.number }}</mat-card-title>
       <mat-card-subtitle>$ {{ player.money }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <p>Player's porperties:</p>
       <ul>
-        <li *ngFor="let property of player.properties">{{ property }}</li>
+        <li *ngFor="let property of player.properties">
+          {{ property.name }} (level:{{ property.level }})
+        </li>
       </ul>
       <button
         mat-raised-button
@@ -63,8 +67,17 @@
       <p class="property-title">Properties</p>
       <ul>
         <li *ngFor="let property of activePlayer.properties; let i = index">
-          {{ property }}
-          <button mat-flat-button (click)="upgradeBtn(i)">upgrade</button>
+          {{ property.name }}
+          <button
+            *ngIf="property.type === 3"
+            mat-flat-button
+            (click)="upgradeBtn(property)"
+            [disabled]="
+              property.upgradeCost > activePlayer.money || property.level === 5
+            "
+          >
+            Upgrade ${{ property.upgradeCost }}
+          </button>
         </li>
       </ul>
       <button mat-raised-button class="close-btn" (click)="activeTurn = false">
@@ -84,4 +97,54 @@
     </div>
   </div>
 </div>
-<app-tile [tile]="activeTile" [isActive]="tileMenu"></app-tile>
+<div
+  *ngIf="tileMenu && (activeTile.type === 3 || activeTile.type === 2)"
+  class="tile-menu"
+>
+  <h1>{{ activeTile.name }}</h1>
+  <p>{{ activeTile.description }}</p>
+  <div *ngIf="activeTile.rent.length > 0">
+    <h3>Prices of each level:</h3>
+    <ul>
+      <li
+        *ngFor="let price of activeTile.rent"
+        [ngClass]="
+          price === activeTile.rent[activeTile.level] ? 'currentLevel' : ''
+        "
+      >
+        {{ price }}
+      </li>
+    </ul>
+  </div>
+  <span>Owner of property: </span>
+  <span
+    *ngIf="activeTile.owner !== null || activeTile.owner !== 0"
+    class="owner"
+    >Player {{ activeTile.owner }}</span
+  >
+  <span
+    *ngIf="activeTile.owner === null || activeTile.owner === 0"
+    class="owner"
+    >unowned</span
+  >
+  <div
+    *ngIf="
+      (activeTile.owner === null || activeTile.owner === 0) &&
+      activePlayer.position === activeTile.id
+    "
+  >
+    <button
+      mat-flat-button
+      class="buy-property-btn"
+      [disabled]="activeTile.value > activePlayer.money"
+      (click)="buyProperty()"
+    >
+      Buy for {{ activeTile.value.toLocaleString("en") }}
+    </button>
+  </div>
+</div>
+<div
+  class="backdrop"
+  (click)="tileMenu = false"
+  *ngIf="tileMenu && (activeTile.type === 3 || activeTile.type === 2)"
+></div>

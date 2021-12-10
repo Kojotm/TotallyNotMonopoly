@@ -1,23 +1,26 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FieldService } from '../services/field.service';
-import { TileComponent } from '../tile/tile.component';
 
 export interface Tile {
-  id: number;
-  name: string;
-  color: any;
-  image: string;
   col: number;
-  row: number;
+  color: any;
   description: string;
-  rent: number[];
+  id: number;
+  image: string;
   level: number;
+  name: string;
+  rent: any;
+  row: number;
+  owner: number;
+  upgradeCost: number;
+  value: number;
+  type: any;
 }
 export interface Player {
   number: number;
   money: number;
   position: number;
-  properties: string[];
+  properties: Tile[];
 }
 export interface Property {
   name: string;
@@ -46,27 +49,27 @@ export class GameTableComponent implements OnInit {
   players: Player[] = [
     {
       number: 1,
-      money: 505000,
+      money: 5000,
       position: 1,
-      properties: ['Property 1', 'Property 2', 'Property 3'],
+      properties: [],
     },
     {
       number: 2,
-      money: 5000000,
+      money: 5000,
       position: 1,
-      properties: ['Property 1', 'Property 2', 'Property 3'],
+      properties: [],
     },
     {
       number: 3,
-      money: 500000,
+      money: 5000,
       position: 1,
-      properties: ['Property 2', 'Property 3'],
+      properties: [],
     },
     {
       number: 4,
-      money: 5000000,
+      money: 5000,
       position: 1,
-      properties: ['Property 1', 'Property 2', 'Property 3'],
+      properties: [],
     },
   ];
   private leftcolTiles: Tile[] = [];
@@ -74,10 +77,7 @@ export class GameTableComponent implements OnInit {
   private rightColTiles: Tile[] = [];
   private bottomRowTiles: Tile[] = [];
 
-  constructor(
-    private fieldService: FieldService,
-    private tileComponent: TileComponent
-  ) {
+  constructor(private fieldService: FieldService) {
     this.getTilesFromBE();
     this.activePlayerIndex = 0;
     this.activePlayer = this.players[this.activePlayerIndex];
@@ -107,6 +107,14 @@ export class GameTableComponent implements OnInit {
       })
       .catch((err) => console.error(err));
   }
+  rentsToArray() {
+    for (let tile of this.tiles) {
+      if (tile.rent.length > 0) {
+        let rent = tile.rent as string;
+        tile.rent = rent.split(',');
+      }
+    }
+  }
 
   fillTableWithTiles() {
     this.tiles = [];
@@ -126,6 +134,10 @@ export class GameTableComponent implements OnInit {
           description: '',
           rent: [],
           level: 0,
+          owner: 0,
+          value: 0,
+          upgradeCost: 0,
+          type: '',
         });
       }
       this.tiles.push(this.rightColTiles[i]);
@@ -133,27 +145,69 @@ export class GameTableComponent implements OnInit {
     this.tiles.push(this.start);
     this.bottomRowTiles.forEach((tile) => this.tiles.push(tile));
     this.tiles.push(this.goToJail);
+    this.rentsToArray();
   }
 
-  public upgradeBtn(index: number) {
-    console.log('Upgrade: ' + this.activePlayer.properties[index]);
+  public upgradeBtn(property: Tile) {
+    this.activePlayer.money -= property.upgradeCost;
+    property.level += 1;
   }
 
   public nextPlayer() {
     this.activePlayerIndex =
       this.activePlayerIndex + 1 === 4 ? 0 : this.activePlayerIndex + 1;
+
     this.activePlayer = this.players[this.activePlayerIndex];
-    this.rolled = false;
-    this.activeTurn = false;
+    if (this.activePlayer.money > 0) {
+      this.rolled = false;
+      this.activeTurn = false;
+    } else {
+      this.deletePlayer();
+      this.nextPlayer();
+    }
+  }
+  deletePlayer() {
+    for (let property of this.activePlayer.properties) {
+      property.owner = 0;
+      property.level = 0;
+    }
+    this.activePlayer.position = 50;
   }
 
   movePlayer(roll: any[]) {
     this.rolled = true;
+
+    console.log(roll[0], roll[1]);
     let totalRoll = ((roll[0] as number) + roll[1]) as number;
+
+    let newPosition = totalRoll + this.activePlayer.position;
     this.activePlayer.position =
-      this.activePlayer.position + totalRoll > 40
-        ? this.activePlayer.position + totalRoll - 40
-        : this.activePlayer.position + totalRoll;
+      newPosition > 40 ? newPosition - 40 : newPosition;
+    // this.checkActiveTile();
+    setTimeout(() => {
+      this.activeTurn = false;
+    }, 1000);
+  }
+  checkActiveTile() {
+    let currentTile = this.findFirstTile(this.activePlayer.position) as Tile;
+    if (
+      (currentTile.owner !== null || currentTile.owner !== 0) &&
+      currentTile.owner !== this.activePlayer.number
+    ) {
+      let owner: Player = this.players[currentTile.owner - 1];
+      let rent: number = currentTile.rent[currentTile.level];
+      this.activePlayer.money = +this.activePlayer.money - rent;
+      owner.money = Number(owner.money) + Number(rent);
+    }
+  }
+
+  findFirstTile(id: number) {
+    for (let tile of this.tiles) {
+      if (tile.id === id) {
+        return tile;
+      }
+    }
+    return;
   }
 
   getColor(tile: Tile) {
@@ -198,12 +252,22 @@ export class GameTableComponent implements OnInit {
   openTileMenu(id: number) {
     if (id === 0) return;
     this.activeTile = this.findTile(id);
+    console.log(this.activeTile);
     this.tileMenu = true;
+  }
+
+  closeTileMenu() {
+    this.tileMenu = false;
   }
 
   findTile(id: number): any {
     for (let tile of this.tiles) {
       if (tile.id === id) return tile;
     }
+  }
+  buyProperty() {
+    this.activePlayer.money -= this.activeTile.value;
+    this.activeTile.owner = this.activePlayer.number;
+    this.activePlayer.properties.push(this.activeTile);
   }
 }
