@@ -61,7 +61,7 @@ export class GameTableComponent implements OnInit {
     {
       number: 1,
       money: Number(1000),
-      position: 1,
+      position: 33,
       properties: [],
       hasGetOutOfJail: false,
       isJailed: false,
@@ -203,6 +203,7 @@ export class GameTableComponent implements OnInit {
   movePlayer(roll: any[]) {
     this.rolled = true;
     let totalRoll = ((roll[0] as number) + roll[1]) as number;
+    totalRoll = 1;
     if (this.activePlayer.isJailed && roll[0] !== roll[1]) {
       this.activePlayer.money = Number(this.activePlayer.money) - 50;
       this.activePlayer.isJailed = false;
@@ -249,23 +250,25 @@ export class GameTableComponent implements OnInit {
       else this.activePlayer.isJailed = true;
       return;
     }
-    //Penalty tiles
     if (currentTile.type === 4) {
       this.activePlayer.money = this.activePlayer.money - currentTile.rent[0];
       return;
     }
-    //Otherwise
+    console.log('otherwise');
     let hasOwner =
       currentTile.owner !== null || currentTile.owner !== 0
         ? currentTile.owner
         : null;
+    console.log(hasOwner);
     if (hasOwner === null || hasOwner === this.activePlayer.number) return;
 
     let rent: number =
       currentTile.type === 6
         ? roll * currentTile.rent[currentTile.level]
         : currentTile.rent[currentTile.level];
-    let owner: Player = this.players[currentTile.owner];
+    console.log(rent);
+    let owner: Player = this.players[currentTile.owner - 1];
+    console.log(owner);
     this.activePlayer.money = +this.activePlayer.money - rent;
     owner.money = Number(owner.money) + Number(rent);
   }
@@ -327,10 +330,7 @@ export class GameTableComponent implements OnInit {
     }
   }
 
-  // infoCard -> info
-  // let info -> delete
-  findTileByName(infoCard: string) {
-    let info = infoCard.split(',')[0];
+  findTileByName(info: string) {
     if (info === 'Tram') {
       let i = this.activePlayer.position;
       for (i; i < 40; i++) {
