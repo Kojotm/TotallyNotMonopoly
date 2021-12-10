@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FieldService } from '../services/field.service';
-import { TileService } from '../services/tile.service';
 import { TileComponent } from '../tile/tile.component';
 
 export interface Tile {
@@ -36,6 +35,7 @@ export class GameTableComponent implements OnInit {
   public activePlayer: Player;
   public activePlayerIndex: number;
   public activeTile!: Tile;
+  public tileMenu: boolean = false;
   public rolled: boolean;
   public tiles: Tile[] = [];
   public start!: Tile;
@@ -76,8 +76,7 @@ export class GameTableComponent implements OnInit {
 
   constructor(
     private fieldService: FieldService,
-    private tileComponent: TileComponent,
-    private tileService: TileService
+    private tileComponent: TileComponent
   ) {
     this.getTilesFromBE();
     this.activePlayerIndex = 0;
@@ -197,9 +196,9 @@ export class GameTableComponent implements OnInit {
     return style;
   }
   openTileMenu(id: number) {
-    if(id === 0) return;
-
-    this.tileComponent.setTile(this.findTile(id));
+    if (id === 0) return;
+    this.activeTile = this.findTile(id);
+    this.tileMenu = true;
   }
 
   findTile(id: number): any {
