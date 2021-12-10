@@ -3,43 +3,43 @@
     "id": 1,
     "description": "Advance to Parliament",
     "type": "advance",
-    "amount": "Parliament, 0"
+    "amount": "Parliament"
   },
   {
     "id": 2,
     "description": "Advance to Go (Collect $200)",
     "type": "advance",
-    "amount": "Go, 0"
+    "amount": "Go"
   },
   {
     "id": 3,
-    "description": "Advance to Széchenyi Spa. If you pass Go, collect $200",
+    "description": "Advance to Szechenyi Spa, if you pass Go, collect $200",
     "type": "advance",
-    "amount": "Széchenyi Spa, 0"
+    "amount": "Szechenyi Spa"
   },
   {
     "id": 4,
-    "description": "Advance to Great Market Hall. If you pass Go, collect $200",
+    "description": "Advance to Great Market Hall, if you pass Go, collect $200",
     "type": "advance",
-    "amount": "Great Market Hall, 0"
+    "amount": "Great Market Hall"
   },
   {
     "id": 5,
-    "description": "Advance to the nearest Tram. If unowned, you may buy it from the Bank.",
+    "description": "Advance to the nearest Tram, if unowned, you may buy it from the Bank.",
     "type": "advance",
-    "amount": "Tram, 0"
+    "amount": "Tram"
   },
   {
     "id": 6,
-    "description": "Advance to the nearest Tram. If unowned, you may buy it from the Bank.",
+    "description": "Advance to the nearest Tram, if unowned, you may buy it from the Bank.",
     "type": "advance",
-    "amount": "Tram, 0"
+    "amount": "Tram"
   },
   {
     "id": 7,
-    "description": "Advance token to nearest Utility. If unowned, you may buy it from the Bank.",
+    "description": "Advance token to nearest Utility, if unowned, you may buy it from the Bank.",
     "type": "advance",
-    "amount": "Utility, 0"
+    "amount": "Utility"
   },
   {
     "id": 8,
@@ -61,13 +61,13 @@
   },
   {
     "id": 11,
-    "description": "Go directly to Jail – do not pass Go, do not collect $200 ",
+    "description": "Go directly to Jail, do not pass Go, do not collect $200 ",
     "type": "jail",
     "amount": "0"
   },
   {
     "id": 12,
-    "description": "Make general repairs on all your property – for each level pay $25",
+    "description": "Make general repairs on all your property, for each level pay $25",
     "type": "repairs",
     "amount": "25"
   },
@@ -79,19 +79,19 @@
   },
   {
     "id": 14,
-    "description": "Take a trip to Tram 4-6 – if you pass Go collect $200",
+    "description": "Take a trip to Tram 4-6, if you pass Go collect $200",
     "type": "advance",
-    "amount": "Tram 4-6, 0"
+    "amount": "Tram 4-6"
   },
   {
     "id": 15,
-    "description": "You have been elected chairman of the board – pay each player $50 ",
+    "description": "You have been elected chairman of the board, pay each player $50 ",
     "type": "spend-each-player",
     "amount": "50"
   },
   {
     "id": 16,
-    "description": "Your building loan matures – collect $150 ",
+    "description": "Your building loan matures, collect $150 ",
     "type": "earn",
     "amount": "150"
   }

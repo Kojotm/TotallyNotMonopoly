@@ -361,8 +361,8 @@
   },
   {
     "Id": 25,
-    "Name": "Széchenyi Spa",
-    "Description": "The Széchenyi Spa is one of the biggest thermal centers in Europe.",
+    "Name": "Szechenyi Spa",
+    "Description": "The Szechenyi Spa is one of the biggest thermal centers in Europe.",
     "Color": "Red",
     "Image": "",
     "Rent": "20,100,300,750,925,1100",
@@ -437,7 +437,7 @@
   {
     "Id": 30,
     "Name": "Chain Bridge",
-    "Description": "The Chain Bridge is the oldest bridge in Budapest and the best known on the entire Danube. It is officially known as the Széchenyi Bridge in honor of its creator.",
+    "Description": "The Chain Bridge is the oldest bridge in Budapest and the best known on the entire Danube. It is officially known as the Szechenyi Bridge in honor of its creator.",
     "Color": "Yellow",
     "Image": "",
     "Rent": "24,120,360,850,1025,1200",
