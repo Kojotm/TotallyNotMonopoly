@@ -91,21 +91,6 @@
   },
   {
     "Id": 7,
-    "Name": "",
-    "Description": ".",
-    "Color": "LightBlue",
-    "Image": "",
-    "Rent": "6,30,90,270,400,550",
-    "Value": 100,
-    "Level": 0,
-    "UpgradeCost": 50,
-    "Col": 2,
-    "Row": 1,
-    "Type": "Property",
-    "SetNumber": 1
-  },
-  {
-    "Id": 8,
     "Name": "Chance",
     "Description": ".",
     "Color": "None",
@@ -120,8 +105,23 @@
     "SetNumber": 1
   },
   {
+    "Id": 8,
+    "Name": "8",
+    "Description": ".",
+    "Color": "LightBlue",
+    "Image": "",
+    "Rent": "6,30,90,270,400,550",
+    "Value": 100,
+    "Level": 0,
+    "UpgradeCost": 50,
+    "Col": 2,
+    "Row": 1,
+    "Type": "Property",
+    "SetNumber": 1
+  },
+  {
     "Id": 9,
-    "Name": "",
+    "Name": "9",
     "Description": ".",
     "Color": "LightBlue",
     "Image": "",
@@ -136,7 +136,7 @@
   },
   {
     "Id": 10,
-    "Name": "",
+    "Name": "10",
     "Description": ".",
     "Color": "LightBlue",
     "Image": "",
@@ -166,7 +166,7 @@
   },
   {
     "Id": 12,
-    "Name": "",
+    "Name": "12",
     "Description": ".",
     "Color": "Magenta",
     "Image": "",
@@ -196,7 +196,7 @@
   },
   {
     "Id": 14,
-    "Name": "",
+    "Name": "14",
     "Description": ".",
     "Color": "Magenta",
     "Image": "",
@@ -211,7 +211,7 @@
   },
   {
     "Id": 15,
-    "Name": "",
+    "Name": "15",
     "Description": ".",
     "Color": "Magenta",
     "Image": "",
@@ -241,7 +241,7 @@
   },
   {
     "Id": 17,
-    "Name": "",
+    "Name": "17",
     "Description": ".",
     "Color": "Orange",
     "Image": "",
@@ -271,7 +271,7 @@
   },
   {
     "Id": 19,
-    "Name": "",
+    "Name": "19",
     "Description": ".",
     "Color": "Orange",
     "Image": "",
@@ -286,7 +286,7 @@
   },
   {
     "Id": 20,
-    "Name": "",
+    "Name": "20",
     "Description": ".",
     "Color": "Orange",
     "Image": "",
@@ -316,7 +316,7 @@
   },
   {
     "Id": 22,
-    "Name": "",
+    "Name": "22",
     "Description": ".",
     "Color": "Red",
     "Image": "",
@@ -346,7 +346,7 @@
   },
   {
     "Id": 24,
-    "Name": "",
+    "Name": "24",
     "Description": ".",
     "Color": "Red",
     "Image": "",
@@ -361,7 +361,7 @@
   },
   {
     "Id": 25,
-    "Name": "",
+    "Name": "25",
     "Description": ".",
     "Color": "Red",
     "Image": "",
@@ -391,7 +391,7 @@
   },
   {
     "Id": 27,
-    "Name": "",
+    "Name": "27",
     "Description": ".",
     "Color": "Yellow",
     "Image": "",
@@ -406,7 +406,7 @@
   },
   {
     "Id": 28,
-    "Name": "",
+    "Name": "28",
     "Description": ".",
     "Color": "Yellow",
     "Image": "",
@@ -429,14 +429,14 @@
     "Value": 150,
     "Level": 0,
     "UpgradeCost": 0,
-    "Col": 1,
-    "Row": 2,
+    "Col": 2,
+    "Row": 1,
     "Type": "Utility",
     "SetNumber": 1
   },
   {
     "Id": 30,
-    "Name": "",
+    "Name": "30",
     "Description": ".",
     "Color": "Yellow",
     "Image": "",
@@ -466,7 +466,7 @@
   },
   {
     "Id": 32,
-    "Name": "",
+    "Name": "32",
     "Description": ".",
     "Color": "Green",
     "Image": "",
@@ -481,7 +481,7 @@
   },
   {
     "Id": 33,
-    "Name": "",
+    "Name": "33",
     "Description": ".",
     "Color": "Green",
     "Image": "",
@@ -511,7 +511,7 @@
   },
   {
     "Id": 35,
-    "Name": "",
+    "Name": "35",
     "Description": ".",
     "Color": "Green",
     "Image": "",
@@ -556,7 +556,7 @@
   },
   {
     "Id": 38,
-    "Name": "",
+    "Name": "38",
     "Description": ".",
     "Color": "DarkBlue",
     "Image": "",
@@ -586,7 +586,7 @@
   },
   {
     "Id": 40,
-    "Name": "",
+    "Name": "40",
     "Description": ".",
     "Color": "DarkBlue",
     "Image": "",

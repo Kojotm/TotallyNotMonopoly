@@ -75,7 +75,7 @@ export class GameTableComponent implements OnInit {
     this.getTilesFromBE();
     this.activePlayerIndex = 0;
     this.activePlayer = this.players[this.activePlayerIndex];
-    this.activeTurn = true;
+    this.activeTurn = false;
     this.rolled = false;
   }
 
