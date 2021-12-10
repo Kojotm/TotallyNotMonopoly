@@ -22,13 +22,16 @@ namespace WebAPI.Controllers
         }
 
         // GET: Fields/Details/5
-        public async Task<ActionResult> Details(int? id)
+        [HttpGet("details/{id}")]
+        public async Task<ActionResult> Details(int id)
         {
-            if (id == null)
+            var details = await fieldService.GetById(id);
+
+            if (details == null)
             {
                 return NotFound();
             }
-            return Ok(fieldService.GetById(id));
+            return Ok(details);
 
         }
     }

@@ -12,7 +12,7 @@ namespace Services
     public interface IFieldService
     {
         Task<List<Field>> GetAll();
-        Task<Field> GetById(int? id);
+        Task<Field> GetById(int id);
     }
 
     public class FieldService : IFieldService
@@ -29,7 +29,7 @@ namespace Services
             return context.Fields.ToListAsync();
         }
 
-        public Task<Field> GetById(int? id)
+        public Task<Field> GetById(int id)
         {
             return context.Fields.FirstOrDefaultAsync(field => field.Id == id);
         }
