@@ -39,7 +39,7 @@ namespace Model.Cards
 
         // Purchase value
         public int Value { get; set; }
-
+        public string Owner { get; set; } = "";
         public int Level { get; set; }
         public int UpgradeCost { get; set; }
         public int Col { get; set; }

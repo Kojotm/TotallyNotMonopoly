@@ -1,82 +1,98 @@
 [
   {
-    "description": "Advance to Go",
+    "id": 1,
+    "description": "Advance to Parliament",
     "type": "advance",
-    "amount": 0
+    "amount": "Parliament"
   },
   {
-    "description": "Advance to Illinois Ave",
+    "id": 2,
+    "description": "Advance to Go (Collect $200)",
     "type": "advance",
-    "amount": 24
+    "amount": "Go"
   },
   {
-    "description": "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.",
+    "id": 3,
+    "description": "Advance to Szechenyi Spa, if you pass Go, collect $200",
     "type": "advance",
-    "amount": "utility"
+    "amount": "Szechenyi Spa"
   },
   {
-    "description": "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.",
+    "id": 4,
+    "description": "Advance to Great Market Hall, if you pass Go, collect $200",
     "type": "advance",
-    "amount": "railroad"
+    "amount": "Great Market Hall"
   },
   {
-    "description": "Advance to St. Charles Place – if you pass Go, collect $200",
+    "id": 5,
+    "description": "Advance to the nearest Tram, if unowned, you may buy it from the Bank.",
     "type": "advance",
-    "amount": 11
+    "amount": "Tram"
   },
   {
+    "id": 6,
+    "description": "Advance to the nearest Tram, if unowned, you may buy it from the Bank.",
+    "type": "advance",
+    "amount": "Tram"
+  },
+  {
+    "id": 7,
+    "description": "Advance token to nearest Utility, if unowned, you may buy it from the Bank.",
+    "type": "advance",
+    "amount": "Utility"
+  },
+  {
+    "id": 8,
     "description": "Bank pays you dividend of $50",
     "type": "earn",
-    "amount": 50
+    "amount": "50"
   },
   {
-    "description": "Get out of Jail free – this card may be kept until needed, or traded/sold",
+    "id": 9,
+    "description": "Get Out of Jail Free",
     "type": "jail-card",
-    "amount": 0
+    "amount": ""
   },
   {
+    "id": 10,
     "description": "Go back 3 spaces",
     "type": "back",
-    "amount": 3
+    "amount": "3"
   },
   {
-    "description": "Go directly to Jail – do not pass Go, do not collect $200 ",
+    "id": 11,
+    "description": "Go directly to Jail, do not pass Go, do not collect $200 ",
     "type": "jail",
-    "amount": 0
+    "amount": "0"
   },
   {
-    "description": "Make general repairs on all your property – for each house pay $25 – for each hotel $100 ",
+    "id": 12,
+    "description": "Make general repairs on all your property, for each level pay $25",
     "type": "repairs",
-    "amount": [ 25, 100 ]
+    "amount": "25"
   },
   {
-    "description": "Pay poor tax of $15",
+    "id": 13,
+    "description": "Speeding fine $15",
     "type": "spend",
-    "amount": 15
+    "amount": "15"
   },
   {
-    "description": "Take a trip to Reading Railroad – if you pass Go collect $200",
+    "id": 14,
+    "description": "Take a trip to Tram 4-6, if you pass Go collect $200",
     "type": "advance",
-    "amount": 5
+    "amount": "Tram 4-6"
   },
   {
-    "description": "Take a walk on the Boardwalk – advance token to Boardwalk",
-    "type": "advance",
-    "amount": 39
-  },
-  {
-    "description": "You have been elected chairman of the board – pay each player $50 ",
+    "id": 15,
+    "description": "You have been elected chairman of the board, pay each player $50 ",
     "type": "spend-each-player",
-    "amount": 50
+    "amount": "50"
   },
   {
-    "description": "Your building loan matures – collect $150 ",
+    "id": 16,
+    "description": "Your building loan matures, collect $150 ",
     "type": "earn",
-    "amount": 150
-  },
-  {
-    "description": "You have won a crossword competition - collect $100",
-    "type": "earn",
-    "amount": 100
+    "amount": "150"
   }
 ]

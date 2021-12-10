@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(GameTableContext))]
-    partial class GameTableContextModelSnapshot : ModelSnapshot
+    [Migration("20211210145249_AddNewTables")]
+    partial class AddNewTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -458,10 +460,10 @@ namespace Persistence.Migrations
                             Id = 25,
                             Col = 2,
                             Color = 4,
-                            Description = "The Szechenyi Spa is one of the biggest thermal centers in Europe.",
+                            Description = "The Széchenyi Spa is one of the biggest thermal centers in Europe.",
                             Image = "",
                             Level = 0,
-                            Name = "Szechenyi Spa",
+                            Name = "Széchenyi Spa",
                             Rent = "20,100,300,750,925,1100",
                             Row = 1,
                             SetNumber = 1,
@@ -538,7 +540,7 @@ namespace Persistence.Migrations
                             Id = 30,
                             Col = 2,
                             Color = 5,
-                            Description = "The Chain Bridge is the oldest bridge in Budapest and the best known on the entire Danube. It is officially known as the Szechenyi Bridge in honor of its creator.",
+                            Description = "The Chain Bridge is the oldest bridge in Budapest and the best known on the entire Danube. It is officially known as the Széchenyi Bridge in honor of its creator.",
                             Image = "",
                             Level = 0,
                             Name = "Chain Bridge",
@@ -735,50 +737,50 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            Amount = "Parliament",
+                            Amount = "Parliament, 0",
                             Description = "Advance to Parliament",
                             Type = "advance"
                         },
                         new
                         {
                             Id = 2,
-                            Amount = "Go",
+                            Amount = "Go, 0",
                             Description = "Advance to Go (Collect $200)",
                             Type = "advance"
                         },
                         new
                         {
                             Id = 3,
-                            Amount = "Szechenyi Spa",
-                            Description = "Advance to Szechenyi Spa, if you pass Go, collect $200",
+                            Amount = "Sz�chenyi Spa, 0",
+                            Description = "Advance to Sz�chenyi Spa. If you pass Go, collect $200",
                             Type = "advance"
                         },
                         new
                         {
                             Id = 4,
-                            Amount = "Great Market Hall",
-                            Description = "Advance to Great Market Hall, if you pass Go, collect $200",
+                            Amount = "Great Market Hall, 0",
+                            Description = "Advance to Great Market Hall. If you pass Go, collect $200",
                             Type = "advance"
                         },
                         new
                         {
                             Id = 5,
-                            Amount = "Tram",
-                            Description = "Advance to the nearest Tram, if unowned, you may buy it from the Bank.",
+                            Amount = "Tram, 0",
+                            Description = "Advance to the nearest Tram. If unowned, you may buy it from the Bank.",
                             Type = "advance"
                         },
                         new
                         {
                             Id = 6,
-                            Amount = "Tram",
-                            Description = "Advance to the nearest Tram, if unowned, you may buy it from the Bank.",
+                            Amount = "Tram, 0",
+                            Description = "Advance to the nearest Tram. If unowned, you may buy it from the Bank.",
                             Type = "advance"
                         },
                         new
                         {
                             Id = 7,
-                            Amount = "Utility",
-                            Description = "Advance token to nearest Utility, if unowned, you may buy it from the Bank.",
+                            Amount = "Utility, 0",
+                            Description = "Advance token to nearest Utility. If unowned, you may buy it from the Bank.",
                             Type = "advance"
                         },
                         new
@@ -806,14 +808,14 @@ namespace Persistence.Migrations
                         {
                             Id = 11,
                             Amount = "0",
-                            Description = "Go directly to Jail, do not pass Go, do not collect $200 ",
+                            Description = "Go directly to Jail � do not pass Go, do not collect $200 ",
                             Type = "jail"
                         },
                         new
                         {
                             Id = 12,
                             Amount = "25",
-                            Description = "Make general repairs on all your property, for each level pay $25",
+                            Description = "Make general repairs on all your property � for each level pay $25",
                             Type = "repairs"
                         },
                         new
@@ -826,22 +828,22 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 14,
-                            Amount = "Tram 4-6",
-                            Description = "Take a trip to Tram 4-6, if you pass Go collect $200",
+                            Amount = "Tram 4-6, 0",
+                            Description = "Take a trip to Tram 4-6 � if you pass Go collect $200",
                             Type = "advance"
                         },
                         new
                         {
                             Id = 15,
                             Amount = "50",
-                            Description = "You have been elected chairman of the board, pay each player $50 ",
+                            Description = "You have been elected chairman of the board � pay each player $50 ",
                             Type = "spend-each-player"
                         },
                         new
                         {
                             Id = 16,
                             Amount = "150",
-                            Description = "Your building loan matures, collect $150 ",
+                            Description = "Your building loan matures � collect $150 ",
                             Type = "earn"
                         });
                 });
@@ -871,21 +873,21 @@ namespace Persistence.Migrations
                         {
                             Id = 1,
                             Amount = "0",
-                            Description = "Advance to Go (Collect $200)",
+                            Description = "Advance to Go (Collect $200) ",
                             Type = "advance"
                         },
                         new
                         {
                             Id = 2,
                             Amount = "200",
-                            Description = "Bank error in your favor, collect $200",
+                            Description = "Bank error in your favor. Collect $200",
                             Type = "earn"
                         },
                         new
                         {
                             Id = 3,
                             Amount = "50",
-                            Description = "Doctor's fees, pay $50",
+                            Description = "Doctor's fees � Pay $50",
                             Type = "spend"
                         },
                         new
@@ -899,84 +901,84 @@ namespace Persistence.Migrations
                         {
                             Id = 5,
                             Amount = "0",
-                            Description = "Go directly to jail",
+                            Description = "Go to jail � go directly to jail � Do not pass Go, do not collect $200",
                             Type = "jail"
                         },
                         new
                         {
                             Id = 6,
                             Amount = "10",
-                            Description = "It is your birthday Collect $10 from each player",
+                            Description = "It is your birthday Collect $10 from each player ",
                             Type = "earn-each-player"
                         },
                         new
                         {
                             Id = 7,
                             Amount = "100",
-                            Description = "Life Insurance Matures, collect $100",
+                            Description = "Life Insurance Matures � collect $100 ",
                             Type = "earn"
                         },
                         new
                         {
                             Id = 8,
                             Amount = "20",
-                            Description = "Income Tax refund, collect $20",
+                            Description = "Income Tax refund � collect $20",
                             Type = "earn"
                         },
                         new
                         {
                             Id = 9,
                             Amount = "100",
-                            Description = "Pay Hospital Fees of $100",
+                            Description = "Pay Hospital Fees of $100 ",
                             Type = "spend"
                         },
                         new
                         {
                             Id = 10,
                             Amount = "25",
-                            Description = "Receive $25 Consultancy Fee",
+                            Description = "Receive $25 Consultancy Fee ",
                             Type = "earn"
                         },
                         new
                         {
                             Id = 11,
                             Amount = "50",
-                            Description = "Pay School Fees of $50",
+                            Description = "Pay School Fees of $50 ",
                             Type = "spend"
                         },
                         new
                         {
                             Id = 12,
                             Amount = "40",
-                            Description = "You are assessed for street repairs, $40 per level",
+                            Description = "You are assessed for street repairs � $40 per level",
                             Type = "repairs"
                         },
                         new
                         {
                             Id = 13,
                             Amount = "10",
-                            Description = "You have won second prize in a beauty contest, collect $10",
+                            Description = "You have won second prize in a beauty contest� collect $10 ",
                             Type = "earn"
                         },
                         new
                         {
                             Id = 14,
                             Amount = "100",
-                            Description = "You inherit $100",
+                            Description = "You inherit $100 ",
                             Type = "earn"
                         },
                         new
                         {
                             Id = 15,
                             Amount = "50",
-                            Description = "From sale of stock you get $50",
+                            Description = "From sale of stock you get $50 ",
                             Type = "earn"
                         },
                         new
                         {
                             Id = 16,
                             Amount = "100",
-                            Description = "Holiday Fund matures, receive $100",
+                            Description = "Holiday Fund matures - Receive $100 ",
                             Type = "earn"
                         },
                         new
