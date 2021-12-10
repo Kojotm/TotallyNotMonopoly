@@ -49,25 +49,25 @@ export class GameTableComponent implements OnInit {
   players: Player[] = [
     {
       number: 1,
-      money: 5000,
+      money: Number(5000),
       position: 1,
       properties: [],
     },
     {
       number: 2,
-      money: 5000,
+      money: Number(5000),
       position: 1,
       properties: [],
     },
     {
       number: 3,
-      money: 5000,
+      money: Number(5000),
       position: 1,
       properties: [],
     },
     {
       number: 4,
-      money: 5000,
+      money: Number(5000),
       position: 1,
       properties: [],
     },
@@ -183,31 +183,21 @@ export class GameTableComponent implements OnInit {
     let newPosition = totalRoll + this.activePlayer.position;
     this.activePlayer.position =
       newPosition > 40 ? newPosition - 40 : newPosition;
-    // this.checkActiveTile();
-    setTimeout(() => {
-      this.activeTurn = false;
-    }, 1000);
+    this.checkActiveTile();
   }
   checkActiveTile() {
-    let currentTile = this.findFirstTile(this.activePlayer.position) as Tile;
-    if (
-      (currentTile.owner !== null || currentTile.owner !== 0) &&
-      currentTile.owner !== this.activePlayer.number
-    ) {
-      let owner: Player = this.players[currentTile.owner - 1];
+    let currentTile = this.findTile(this.activePlayer.position) as Tile;
+    let owner =
+      currentTile.owner !== null || currentTile.owner !== 0
+        ? currentTile.owner
+        : null;
+    if (owner !== null && owner !== this.activePlayer.number) {
+      let owner: Player = this.players[currentTile.owner];
+      console.log(owner);
       let rent: number = currentTile.rent[currentTile.level];
       this.activePlayer.money = +this.activePlayer.money - rent;
       owner.money = Number(owner.money) + Number(rent);
     }
-  }
-
-  findFirstTile(id: number) {
-    for (let tile of this.tiles) {
-      if (tile.id === id) {
-        return tile;
-      }
-    }
-    return;
   }
 
   getColor(tile: Tile) {
