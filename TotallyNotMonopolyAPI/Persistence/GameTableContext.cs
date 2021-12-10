@@ -4,7 +4,6 @@ using Model;
 using Model.Cards;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 
 namespace Persistence
@@ -63,7 +62,7 @@ namespace Persistence
             string chanceJson = chanceReader.ReadToEnd();
             chanceCardsList = JsonConvert.DeserializeObject<List<Chance>>(chanceJson);
 
-            for(int i = 0; i < chanceCardsList.Count; i++)
+            for (int i = 0; i < chanceCardsList.Count; i++)
             {
                 modelBuilder.Entity<Chance>().HasData(new
                 {
